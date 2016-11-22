@@ -5,15 +5,15 @@ import java.io.Serializable;
 /**
  * Created by Yida Yuan on 11/21/16.
  */
-public class LoginUser implements Serializable {
+public class LoginUserBean implements Serializable {
     private String EmailID, PWD;
 
-    public LoginUser() {
+    public LoginUserBean() {
         EmailID = "";
         PWD = "";
     }
 
-    public LoginUser(String EmailId, String PWD) {
+    public LoginUserBean(String EmailId, String PWD) {
         this.EmailID = EmailId;
         this.PWD = PWD;
     }

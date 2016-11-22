@@ -1,5 +1,7 @@
 // script
 
-function RegisterBt_onclick() {
+function SignUpBt_onclick() {
     window.open("wfRegistrationPage.html", "_self" );
 }
+
+

@@ -1,5 +1,6 @@
 package wf;
 
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
-    private static String connectionString = "jdbc:mysql://localhost:3306/cse305?autoReconnect=true&useSSL=false";
+    private static String connectionString = "jdbc:mysql://localhost:3306/WithFriends?autoReconnect=true&useSSL=false";
     private static Connection connection;
     private static Statement command;
     private static ResultSet data;
@@ -29,6 +30,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        out.println("doPost");
         String inputUname = request.getParameter("username");
         String inputPWD = request.getParameter("password");
         if(inputUname.equals("") || inputPWD.equals("")) {
@@ -39,6 +42,7 @@ public class LoginServlet extends HttpServlet {
         try {
             //test whether username and password is in the data base or not.
             ServletContext sContext = this.getServletContext();
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
             command = connection.createStatement();
             data = command.executeQuery("SELECT EmailID, PWD FROM WithFriends_Users");
@@ -46,13 +50,13 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             try {
-                do {
+                while (data.next()) {
                     String currUname = data.getString(1);
                     String currPWD = data.getString(2);
                     if (inputUname.equals(currUname) && inputPWD.equals(currPWD))
 
-                    System.out.println(data.getString(1) + " " + data.getString(2));
-                } while (data.next());
+                        System.out.println(data.getString(1) + " " + data.getString(2));
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
