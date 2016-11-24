@@ -1,6 +1,5 @@
 package wf;
 
-import wf.userbean.User;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,10 +22,11 @@ public class LoginServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
-    private static String connectionString = "jdbc:mysql://localhost:3306/WithFriends?autoReconnect=true&useSSL=false";
+    private static String connectionString = "jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false";
+    private String query;
     private static Connection connection;
     private static Statement command;
-    private static ResultSet data;
+    private ResultSet data;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -35,18 +35,27 @@ public class LoginServlet extends HttpServlet {
         out.println("doPost");
         String inputUname = request.getParameter("username");
         String inputPWD = request.getParameter("password");
-        if(inputUname.equals("") || inputPWD.equals(""))
-            response.sendRedirect("index.html");    // Empty inputs
+        if(inputUname.equals("") || inputPWD.equals("")) {
+            // Empty inputs
+            response.sendRedirect("index.html");
+        }
 
-        try {
+        try { 
             //test whether username and password is in the data base or not.
+            ServletContext sContext = this.getServletContext();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
             command = connection.createStatement();
-            data = command.executeQuery("SELECT * FROM WithFriends_Users");
+            query = "SELECT EmailID, PWD FROM withfriends_users WHERE EmailId = '" + inputUname + "' AND PWD = '" + inputPWD + "'";
+            data = command.executeQuery(query); 
+            if (data.next()) {
+                System.out.println("Horray");
+            } else {
+                System.out.println("Boo");
+            }
         } catch(Exception e) {
             e.printStackTrace();
-        }
+        } 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
