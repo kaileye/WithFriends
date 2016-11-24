@@ -6,3 +6,4 @@
 /build/
 /dist/
 /build.xml
+/web/WEB-INF/glassfish-web.xml
