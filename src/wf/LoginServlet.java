@@ -1,5 +1,6 @@
 package wf;
 
+import wf.userbean.User;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -34,32 +35,17 @@ public class LoginServlet extends HttpServlet {
         out.println("doPost");
         String inputUname = request.getParameter("username");
         String inputPWD = request.getParameter("password");
-        if(inputUname.equals("") || inputPWD.equals("")) {
-            // Empty inputs
-            response.sendRedirect("index.html");
-        }
+        if(inputUname.equals("") || inputPWD.equals(""))
+            response.sendRedirect("index.html");    // Empty inputs
 
         try {
             //test whether username and password is in the data base or not.
-            ServletContext sContext = this.getServletContext();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
             command = connection.createStatement();
-            data = command.executeQuery("SELECT EmailID, PWD FROM WithFriends_Users");
+            data = command.executeQuery("SELECT * FROM WithFriends_Users");
         } catch(Exception e) {
             e.printStackTrace();
-        } finally {
-            try {
-                while (data.next()) {
-                    String currUname = data.getString(1);
-                    String currPWD = data.getString(2);
-                    if (inputUname.equals(currUname) && inputPWD.equals(currPWD))
-
-                        System.out.println(data.getString(1) + " " + data.getString(2));
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
