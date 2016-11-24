@@ -2,6 +2,7 @@
 /lib
 /out
 /WithFriends.iml
-/nbproject/private/
+/nbproject
 /build/
 /dist/
+/build.xml
