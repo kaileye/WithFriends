@@ -28,7 +28,7 @@
                 <li><a href="message.jsp">Messages</a><li>
                 <li><a href="advertisement.jsp">Merchandise</a></li>
                 <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> ${USER.firstname}</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> ${USER.firstname}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                                 <li><a href="logout">Log Out</a></li>
                         </ul>
