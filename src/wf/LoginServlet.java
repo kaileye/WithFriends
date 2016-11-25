@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Yida Yuan on 11/21/16.
@@ -23,7 +26,6 @@ public class LoginServlet extends HttpServlet {
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
     private static String connectionString = "jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false";
-    private String query;
     private static Connection connection;
     private static Statement command;
     private ResultSet data;
@@ -32,12 +34,12 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
-        out.println("doPost");
+        HttpSession session = request.getSession();
         String inputUname = request.getParameter("username");
         String inputPWD = request.getParameter("password");
         if(inputUname.equals("") || inputPWD.equals("")) {
             // Empty inputs
-            response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
         }
 
         try { 
@@ -45,13 +47,18 @@ public class LoginServlet extends HttpServlet {
             ServletContext sContext = this.getServletContext();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            command = connection.createStatement();
-            query = "SELECT EmailID, PWD FROM withfriends_users WHERE EmailId = '" + inputUname + "' AND PWD = '" + inputPWD + "'";
-            data = command.executeQuery(query); 
+            PreparedStatement ps =connection.prepareStatement("SELECT EmailId, PWD FROM withfriends_users WHERE EmailId=? and PWD=?");
+            ps.setString(1, inputUname);
+            ps.setString(2, inputPWD);
+            data =ps.executeQuery();
             if (data.next()) {
-                System.out.println("Horray");
+                session.setAttribute("loggedin", true);
+                RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+                rs.forward(request, response);
             } else {
-                System.out.println("Boo");
+                request.setAttribute("validlogin", false);
+                RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+                rs.forward(request, response);
             }
         } catch(Exception e) {
             e.printStackTrace();
