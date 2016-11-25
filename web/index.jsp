@@ -46,6 +46,35 @@
         </c:if>
         <c:if test="${loggedin == true}">
             <%@ include file="navigation.jsp" %>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4" class="form-control custom-control">
+                        <form action="post" method="POST">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="5" cols="60" style="resize:none" placeholder="What's on your mind?"></textarea>
+                                    </div>
+                                </div>
+                                <div class="panel-footer">
+                                    <button type="submit" class="btn pull-right">Post</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-8" class="form-control custom-control">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="text-center">Wall</h4>
+                            </div>
+                            <div class="panel-body">
+                                Blah blah blah.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </c:if>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
