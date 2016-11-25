@@ -20,6 +20,8 @@
         <title>WithFriends - Log In or Sign Up</title>
     </head>
     <body>
+        <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
+        <% session.setAttribute("user", USER); %>
         <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <c:if test="${loggedin == false || empty loggedin}">
         <div class="align-center">
@@ -53,7 +55,9 @@
         </form>
         </c:if>
         <c:if test="${loggedin == true}">
-            <h1>Hello</h1>
+            <h1>Welcome</h1>
+            Hello <jsp:getProperty name="user" property="firstname" /> <jsp:getProperty name="user" property="lastname" /> <br />
+            Your User ID is: <jsp:getProperty name="user" property="userId" /> <br />
             <a href="logout">Log Out</a>
         </c:if>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

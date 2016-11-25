@@ -29,38 +29,7 @@ public class User implements Serializable {
     private String hourlyRate;
 
     public User() {
-        userId = "";
-        firstname = "";
-        lastname = "";
-        sex = "";
-        email = "";
-        pwd = "";
-        dob = "";
-        address = "";
-        city = "";
-        state = "";
-        zipcode = "";
-        telephone = "";
-        accNum = "";
-        accDate = "";
-        creditCardNum = "";
-        preference = "";
-        rating = "";
-        ssn = "";
-        hourlyRate = "";
-    }
-
-    public User(String userId, String firstname, String lastname, String sex, String email, String pwd,
-                String dob, String address, String city, String state, String zipcode, String telephone,
-                String accNum, String accDate, String creditCardNum, String preference, String rating,
-                String ssn, String hourlyRate) {
-        this.userId = userId;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.sex = sex;
-        this.email = email;
-        this.pwd = pwd;
-        this.dob = dob;
+        
     }
 
     // Getters
