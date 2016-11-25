@@ -1,4 +1,3 @@
-<jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">
@@ -29,7 +28,7 @@
                 <li><a href="message.jsp">Messages</a><li>
                 <li><a href="advertisement.jsp">Merchandise</a></li>
                 <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> <jsp:getProperty name="USER" property="firstname" /><span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> ${USER.firstname}</span></a>
                         <ul class="dropdown-menu">
                                 <li><a href="logout">Log Out</a></li>
                         </ul>
