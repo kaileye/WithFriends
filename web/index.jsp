@@ -7,16 +7,6 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/wfcss.css" rel="stylesheet">
         <script src="wfscript.js"></script>
-        <script>
-            var req;
-            var u;
-            var p;
-            function validateLogin() {
-                u = document.getElementById("uname");
-                p = document.getElementById("pwd");
-                var url = "http://localhost:8080/WithFriends/LoginServlet"
-            }
-        </script>
         <title>WithFriends - Log In or Sign Up</title>
     </head>
     <body>
@@ -55,10 +45,7 @@
         </form>
         </c:if>
         <c:if test="${loggedin == true}">
-            <h1>Welcome</h1>
-            Hello <jsp:getProperty name="user" property="firstname" /> <jsp:getProperty name="user" property="lastname" /> <br />
-            Your User ID is: <jsp:getProperty name="user" property="userId" /> <br />
-            <a href="logout">Log Out</a>
+            <%@ include file="navigation.jsp" %>
         </c:if>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
