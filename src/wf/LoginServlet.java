@@ -27,7 +27,6 @@ public class LoginServlet extends HttpServlet {
     private static String dbPassward = "cse305";
     private static String connectionString = "jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false";
     private static Connection connection;
-    private static Statement command;
     private ResultSet data;
 
     @Override
@@ -47,7 +46,7 @@ public class LoginServlet extends HttpServlet {
             ServletContext sContext = this.getServletContext();
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps =connection.prepareStatement("SELECT EmailId, PWD FROM withfriends_users WHERE EmailId=? and PWD=?");
+            PreparedStatement ps =connection.prepareStatement("SELECT EmailId, PWD FROM users WHERE EmailId=? and PWD=?");
             ps.setString(1, inputUname);
             ps.setString(2, inputPWD);
             data =ps.executeQuery();

@@ -65,6 +65,9 @@
                             <c:if test="${validlogin == false}">
                                 <span id="loginInvalid" style="color:red; font-size:12px">The information you entered is incorrect</span>
                             </c:if>
+                            <c:if test="${validlogin == true || empty validlogin}">
+                                <br />
+                            </c:if>
                             <div class="align-center">
                                 <button type="submit" class="btn btn-default" id="login">Log In</button>
                             </div>
