@@ -58,16 +58,16 @@ public class LoginServlet extends HttpServlet {
                 u.setLastname(data.getString("LastName"));
                 request.setAttribute("user", u);
                 session.setAttribute("loggedin", true);
-                RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-                rs.forward(request, response);
             } else {
                 request.setAttribute("validlogin", false);
-                RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
-                rs.forward(request, response);
+
             }
         } catch(Exception e) {
             e.printStackTrace();
-        } 
+        } finally {
+            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+            rs.forward(request, response);
+        }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

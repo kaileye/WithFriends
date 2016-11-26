@@ -54,12 +54,9 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <textarea class="form-control" rows="5" cols="60" style="resize:none" placeholder="What's on your mind?"></textarea>
+                                        <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="What's on your mind?"></textarea>
+                                        <button type="submit" class="btn pull-right">Post</button>
                                     </div>
-                                </div>
-                                <div class="panel-footer">
-                                    <button type="submit" class="btn pull-right">Post</button>
-                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                         </form>
