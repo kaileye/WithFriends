@@ -77,28 +77,36 @@
                                 <h4 class="text-center">News Feed</h4>
                             </div>
                             <div class="panel-body">
-                                <c:forEach var="row" items="${posts.rows}">
+                                <c:forEach var="post" items="${posts.rows}">
                                     <div class="well">
-                                        <strong class="pull-left primary-font">${row.PosterName}</strong>
+                                        <strong class="pull-left primary-font">${post.PosterName}</strong>
                                         <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>${row.PostDateTime}</small>
+                                            <span class="glyphicon glyphicon-time"></span>${post.PostDateTime}</small>
                                         <br />
-                                        ${row.Content}
+                                        ${post.Content}
                                         <br /><br />
-                                        <div class="input-group">
-                                            <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
-                                            <span class="input-group-btn">     
-                                                <a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span> Add Comment</a>
-                                            </span>
-                                        </div>
+                                        <form action="comment" method="POST">
+                                            <div class="input-group">
+                                                <input type="hidden" name="post" value="${post.PostId}">
+                                                <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
+                                                <span class="input-group-btn">     
+                                                    <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
+                                                </span> 
+                                            </div>
+                                        </form>
                                         <br />
+                                        <sql:query dataSource="${wfdb}" var="comments">
+                                        SELECT * from comments WHERE PostId=${post.PostId} ORDER BY PostDateTime LIMIT 30;
+                                        </sql:query>
                                         <ul id="sortable" class="list-unstyled ui-sortable">
-                                            <strong class="pull-left primary-font">John Doe</strong>
-                                            <small class="pull-right text-muted">
-                                                <span class="glyphicon glyphicon-time"></span>Placeholder time</small>
-                                            <br />
-                                            <li class="ui-state-default">Placeholder comment</li>
-                                            <br />
+                                            <c:forEach var="comment" items="${comments.rows}">
+                                                <strong class="pull-left primary-font">${comment.PosterName}</strong>
+                                                <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>${comment.PostDateTime}</small>
+                                                <br />
+                                                <li class="ui-state-default">${comment.Content}</li>
+                                                <br />
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                 </c:forEach>
