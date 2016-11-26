@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wf.userbean.User;
 
-@WebServlet(name = "EditPostServlet", urlPatterns = {"/editpost"})
-public class EditPostServlet extends HttpServlet {
+@WebServlet(name = "EditCommentServlet", urlPatterns = {"/editcomment"})
+public class EditCommentServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
@@ -32,9 +32,9 @@ public class EditPostServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("UPDATE posts SET Content=? WHERE PostId=? AND PosterId=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE comments SET Content=? WHERE CommentId=? AND PosterId=?");
             ps.setString(1, request.getParameter("content"));
-            ps.setString(2, request.getParameter("post"));
+            ps.setString(2, request.getParameter("comment"));
             ps.setString(3, u.getUserId());
             ps.executeUpdate();
         } catch (Exception e) {

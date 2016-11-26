@@ -129,10 +129,7 @@
                                                         <span class="dropdown">
                                                             <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
                                                             <ul class="dropdown-menu">
-                                                                <form action="editcomment" method="POST">
-                                                                    <input type="hidden" name="pg" value="index.jsp">
-                                                                    <li><button class="btn btn-link" type="submit" style="color:black">Edit</button></li>
-                                                                </form>
+                                                                <li><button class="btn btn-link commentediter" type="button" style="color:black" value="${comment.CommentId}">Edit</button></li>
                                                                 <form action="deletecomment" method="POST">
                                                                     <input type="hidden" name="pg" value="index.jsp">
                                                                     <input type="hidden" name="comment" value="${comment.CommentId}">
@@ -164,16 +161,35 @@
                             <input type="hidden" name="pg" value="index.jsp">
                             <input type="hidden" name="post" id="postid" value="">
                             <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content"></textarea> <br />
-                            <button type="submit" class="btn pull-right">Post</button>
+                            <button type="submit" class="btn pull-right">Edit</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
       
+        <div id="commentdialog" title="Edit Comment">
+            <form action="editcomment" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="pg" value="index.jsp">
+                            <input type="hidden" name="comment" id="commentid" value="">
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content"></textarea> <br />
+                            <button type="submit" class="btn pull-right">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
 
         <script>
         $("#postdialog").dialog({
+            autoOpen: false,
+            width: "auto"
+        });
+        
+        $("#commentdialog").dialog({
             autoOpen: false,
             width: "auto"
         });
@@ -181,6 +197,11 @@
         $(".postediter").click(function () {
             $("#postdialog").dialog("open");
             $("#postid").val($(this).val());
+        });
+
+        $(".commentediter").click(function () {
+            $("#commentdialog").dialog("open");
+            $("#commentid").val($(this).val());
         });
         </script>
     </body>
