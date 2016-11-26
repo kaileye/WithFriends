@@ -30,7 +30,7 @@ public class PostServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
-        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
@@ -38,12 +38,13 @@ public class PostServlet extends HttpServlet {
             ps.setString(1, u.getUserId());
             data = ps.executeQuery();
             if (data.next()) {
-                ps = connection.prepareStatement("INSERT INTO posts(PosterId, PageId, PostDate, Content, CommentCount) VALUES(?,?,?,?,?)");
+                ps = connection.prepareStatement("INSERT INTO posts(PosterId, PosterName, PageId, PostDateTime, Content, CommentCount) VALUES(?,?,?,?,?,?)");
                 ps.setString(1, u.getUserId());
-                ps.setString(2, data.getString(1));
-                ps.setString(3, date.toString());
-                ps.setString(4, request.getParameter("content"));
-                ps.setString(5, "0");
+                ps.setString(2, u.getFirstname()+ " " + u.getLastname());
+                ps.setString(3, data.getString(1));
+                ps.setString(4, currentTimestamp.toString());
+                ps.setString(5, request.getParameter("content"));
+                ps.setString(6, "0");
                 ps.executeUpdate();
             }
         } catch (Exception e) {

@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,6 +27,7 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         PrintWriter out = response.getWriter();
+        java.sql.Date date = new java.sql.Date(Calendar.getInstance().getTime().getTime());
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
         String sex = request.getParameter("sex");
@@ -40,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone) VALUES(?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone, AccountCreationDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, sex);
@@ -52,6 +54,7 @@ public class RegistrationServlet extends HttpServlet {
             ps.setString(9, state);
             ps.setString(10, zipcode);
             ps.setString(11, telephone);
+            ps.setString(12, date.toString());
             int i = ps.executeUpdate();
             if (i > 0) {
                 out.println("Successfully registered");

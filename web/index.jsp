@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+        
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -12,8 +17,13 @@
     <body>
         <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
         <% session.setAttribute("user", USER); %>
-        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         
+        <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
+            user="cse305"  password="cse305"/>
+        <sql:query dataSource="${wfdb}" var="posts">
+        SELECT * from posts WHERE posterId=${USER.userId};
+        </sql:query>
         <c:if test="${loggedin == false || empty loggedin}">
             <div class="align-center">
                 <img src="images/logo.png" height="20%" width="20%">
@@ -64,10 +74,25 @@
                     <div class="col-sm-8" class="form-control custom-control">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="text-center">Wall</h4>
+                                <h4 class="text-center">News Feed</h4>
                             </div>
                             <div class="panel-body">
-                                Blah blah blah.
+                                <table border="1" width="100%">
+                                    <tr>
+                                        <th>Poster</th>
+                                        <th>Post Date</th>
+                                        <th>Content</th>
+                                        <th>Comment Count</th>
+                                    </tr>
+                                    <c:forEach var="row" items="${posts.rows}">
+                                        <tr>
+                                            <td><c:out value="${row.PosterName}"/></td>
+                                            <td><c:out value="${row.PostDateTime}"/></td>
+                                            <td><c:out value="${row.Content}"/></td>
+                                            <td><c:out value="${row.CommentCount}"/></td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
                             </div>
                         </div>
                     </div>
