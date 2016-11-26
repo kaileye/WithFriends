@@ -21,9 +21,6 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
-        <sql:query dataSource="${wfdb}" var="posts">
-        SELECT * from posts WHERE posterId=${USER.userId} ORDER BY PostDateTime DESC LIMIT 30;
-        </sql:query>
         <c:if test="${loggedin == false || empty loggedin}">
             <div class="align-center">
                 <img src="images/logo.png" height="20%" width="20%">
@@ -77,6 +74,9 @@
                                 <h4 class="text-center">News Feed</h4>
                             </div>
                             <div class="panel-body">
+                                <sql:query dataSource="${wfdb}" var="posts">
+                                SELECT * from posts WHERE posterId=${USER.userId} ORDER BY PostDateTime DESC LIMIT 30;
+                                </sql:query>
                                 <c:forEach var="post" items="${posts.rows}">
                                     <div class="well">
                                         <strong class="pull-left primary-font">${post.PosterName}</strong>
