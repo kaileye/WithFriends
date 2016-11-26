@@ -21,6 +21,7 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
+        
         <c:if test="${loggedin == false || empty loggedin}">
             <br /><br />
             <div class="align-center">
@@ -62,6 +63,7 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="form-group">
+                                        <input type="hidden" name="pg" value="index.jsp">
                                         <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="What's on your mind?"></textarea> <br />
                                         <button type="submit" class="btn pull-right">Post</button>
                                     </div>
@@ -82,12 +84,30 @@
                                     <div class="well">
                                         <strong class="pull-left primary-font">${post.PosterName}</strong>
                                         <small class="pull-right text-muted">
-                                            <span class="glyphicon glyphicon-time"></span>${post.PostDateTime}</small>
+                                            <span class="glyphicon glyphicon-time"></span>${post.PostDateTime}
+                                                <c:if test="${post.PosterId == USER.userId}">
+                                                    <span class="dropdown">
+                                                        <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
+                                                        <ul class="dropdown-menu">
+                                                            <form action="editpost" method="POST">
+                                                                <input type="hidden" name="pg" value="index.jsp">
+                                                                <li><button class="btn btn-link" type="submit" style="color:black">Edit</button></li>
+                                                            </form>
+                                                            <form action="deletepost" method="POST">
+                                                                <input type="hidden" name="post" value="${post.PostId}">
+                                                                <input type="hidden" name="pg" value="index.jsp">
+                                                                <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
+                                                            </form>
+                                                        </ul>
+                                                    </span>
+                                                </c:if>
+                                        </small>
                                         <br />
                                         ${post.Content}
                                         <br /><br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
+                                                <input type="hidden" name="pg" value="index.jsp">
                                                 <input type="hidden" name="post" value="${post.PostId}">
                                                 <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
                                                 <span class="input-group-btn">     
@@ -103,7 +123,24 @@
                                             <c:forEach var="comment" items="${comments.rows}">
                                                 <strong class="pull-left primary-font">${comment.PosterName}</strong>
                                                 <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>${comment.PostDateTime}</small>
+                                                    <span class="glyphicon glyphicon-time"></span>${comment.PostDateTime}
+                                                    <c:if test="${comment.PosterId == USER.userId}">
+                                                        <span class="dropdown">
+                                                            <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
+                                                            <ul class="dropdown-menu">
+                                                                <form action="editcomment" method="POST">
+                                                                    <input type="hidden" name="pg" value="index.jsp">
+                                                                    <li><button class="btn btn-link" type="submit" style="color:black">Edit</button></li>
+                                                                </form>
+                                                                <form action="deletecomment" method="POST">
+                                                                    <input type="hidden" name="pg" value="index.jsp">
+                                                                    <input type="hidden" name="comment" value="${comment.CommentId}">
+                                                                    <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
+                                                                </form>
+                                                            </ul>
+                                                        </span>
+                                                    </c:if>
+                                                </small>
                                                 <br />
                                                 <li class="ui-state-default">${comment.Content}</li>
                                                 <br />

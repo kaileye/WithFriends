@@ -50,7 +50,8 @@ public class PostServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            RequestDispatcher rs = request.getRequestDispatcher("index.jsp");
+            System.out.println(request.getParameter("page"));
+            RequestDispatcher rs = request.getRequestDispatcher(request.getParameter("pg"));
             rs.forward(request, response);
         }
     }

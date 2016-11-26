@@ -30,7 +30,7 @@
                 <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"> ${USER.firstname} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                                <li><a href="logout">Log Out</a></li>
+                            <li><a href="logout">Log Out</a></li>
                         </ul>
                 </li>
             </ul>

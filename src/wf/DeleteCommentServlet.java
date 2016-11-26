@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package wf;
 
 import java.io.IOException;
@@ -6,7 +11,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Calendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wf.userbean.User;
 
-@WebServlet(name = "CommentServlet", urlPatterns = {"/comment"})
-public class CommentServlet extends HttpServlet {
+@WebServlet(name = "DeleteCommentServlet", urlPatterns = {"/deletecomment"})
+public class DeleteCommentServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
@@ -30,16 +34,12 @@ public class CommentServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
-        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO comments(PosterId, PosterName, PostId, PostDateTime, Content) VALUES(?,?,?,?,?)");
-            ps.setString(1, u.getUserId());
-            ps.setString(2, u.getFirstname() + " " + u.getLastname());
-            ps.setString(3, request.getParameter("post"));
-            ps.setString(4, currentTimestamp.toString());
-            ps.setString(5, request.getParameter("comment"));
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM comments WHERE CommentId=? AND PosterId=?");
+            ps.setString(1, request.getParameter("comment"));
+            ps.setString(2, u.getUserId());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,10 +47,5 @@ public class CommentServlet extends HttpServlet {
             RequestDispatcher rs = request.getRequestDispatcher(request.getParameter("pg"));
             rs.forward(request, response);
         }
-    }
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 }
