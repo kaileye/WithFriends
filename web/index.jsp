@@ -22,7 +22,7 @@
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
         <sql:query dataSource="${wfdb}" var="posts">
-        SELECT * from posts WHERE posterId=${USER.userId};
+        SELECT * from posts WHERE posterId=${USER.userId} ORDER BY PostDateTime DESC LIMIT 30;
         </sql:query>
         <c:if test="${loggedin == false || empty loggedin}">
             <div class="align-center">
@@ -77,29 +77,38 @@
                                 <h4 class="text-center">News Feed</h4>
                             </div>
                             <div class="panel-body">
-                                <table border="1" width="100%">
-                                    <tr>
-                                        <th>Poster</th>
-                                        <th>Post Date</th>
-                                        <th>Content</th>
-                                        <th>Comment Count</th>
-                                    </tr>
-                                    <c:forEach var="row" items="${posts.rows}">
-                                        <tr>
-                                            <td><c:out value="${row.PosterName}"/></td>
-                                            <td><c:out value="${row.PostDateTime}"/></td>
-                                            <td><c:out value="${row.Content}"/></td>
-                                            <td><c:out value="${row.CommentCount}"/></td>
-                                        </tr>
-                                    </c:forEach>
-                                </table>
+                                <c:forEach var="row" items="${posts.rows}">
+                                    <div class="well">
+                                        <strong class="pull-left primary-font">${row.PosterName}</strong>
+                                        <small class="pull-right text-muted">
+                                            <span class="glyphicon glyphicon-time"></span>${row.PostDateTime}</small>
+                                        <br />
+                                        ${row.Content}
+                                        <br /><br />
+                                        <div class="input-group">
+                                            <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
+                                            <span class="input-group-btn">     
+                                                <a href="#" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span> Add Comment</a>
+                                            </span>
+                                        </div>
+                                        <br />
+                                        <ul id="sortable" class="list-unstyled ui-sortable">
+                                            <strong class="pull-left primary-font">John Doe</strong>
+                                            <small class="pull-right text-muted">
+                                                <span class="glyphicon glyphicon-time"></span>Placeholder time</small>
+                                            <br />
+                                            <li class="ui-state-default">Placeholder comment</li>
+                                            <br />
+                                        </ul>
+                                    </div>
+                                </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </c:if>
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
     </body>
