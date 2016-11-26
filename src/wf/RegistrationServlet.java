@@ -40,7 +40,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone) VALUES(?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, sex);
@@ -55,6 +55,14 @@ public class RegistrationServlet extends HttpServlet {
             int i = ps.executeUpdate();
             if (i > 0) {
                 out.println("Successfully registered");
+                data = ps.getGeneratedKeys();
+                if (data.next()){
+                    ps = connection.prepareStatement("INSERT INTO pages(OwnerId, PostCount, PageType) VALUES (?,?,?)");
+                    ps.setString(1, data.getString(1));
+                    ps.setString(2, "0");
+                    ps.setString(3, "user");
+                    ps.executeUpdate();
+                }
             }
         } catch(Exception e) {
             e.printStackTrace();
