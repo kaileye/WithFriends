@@ -9,10 +9,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/wfcss.css" rel="stylesheet">
-        <script src="wfscript.js"></script>
-        <title>WithFriends - Log In or Sign Up</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/wfscript.js"></script>
+        <title>WithFriends</title>
     </head>
     <body>
         <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
@@ -89,10 +93,7 @@
                                                     <span class="dropdown">
                                                         <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
                                                         <ul class="dropdown-menu">
-                                                            <form action="editpost" method="POST">
-                                                                <input type="hidden" name="pg" value="index.jsp">
-                                                                <li><button class="btn btn-link" type="submit" style="color:black">Edit</button></li>
-                                                            </form>
+                                                            <li><button class="btn btn-link postediter" type="button" style="color:black" value="${post.PostId}">Edit</button></li>
                                                             <form action="deletepost" method="POST">
                                                                 <input type="hidden" name="post" value="${post.PostId}">
                                                                 <input type="hidden" name="pg" value="index.jsp">
@@ -119,7 +120,7 @@
                                         <sql:query dataSource="${wfdb}" var="comments">
                                         SELECT * from comments WHERE PostId=${post.PostId} ORDER BY PostDateTime LIMIT 30;
                                         </sql:query>
-                                        <ul id="sortable" class="list-unstyled ui-sortable">
+                                        <ul class="list-unstyled">
                                             <c:forEach var="comment" items="${comments.rows}">
                                                 <strong class="pull-left primary-font">${comment.PosterName}</strong>
                                                 <small class="pull-right text-muted">
@@ -142,10 +143,10 @@
                                                     </c:if>
                                                 </small>
                                                 <br />
-                                                <li class="ui-state-default">${comment.Content}</li>
+                                                <li>${comment.Content}</li>
                                                 <br />
                                             </c:forEach>
-                                        </ul>
+                                        </ul><div class="clearer"></div>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -154,8 +155,33 @@
                 </div>
             </div>
         </c:if>
+        
+        <div id="postdialog" title="Edit Post">
+            <form action="editpost" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="pg" value="index.jsp">
+                            <input type="hidden" name="post" id="postid" value="">
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content"></textarea> <br />
+                            <button type="submit" class="btn pull-right">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+      
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script>
+        $("#postdialog").dialog({
+            autoOpen: false,
+            width: "auto"
+        });
+
+        $(".postediter").click(function () {
+            $("#postdialog").dialog("open");
+            $("#postid").val($(this).val());
+        });
+        </script>
     </body>
 </html>

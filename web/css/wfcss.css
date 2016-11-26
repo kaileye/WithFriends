@@ -37,3 +37,8 @@ body {
 .align-center {
     text-align:center;
 }
+
+.clearer {
+ height:0;
+ clear:both;
+}

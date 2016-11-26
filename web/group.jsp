@@ -8,7 +8,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/wfcss.css" rel="stylesheet">
         <script src="wfscript.js"></script>
-        <title>WithFriends - Groups</title>
+        <title>WithFriends</title>
     </head>
     <body>
         <%@ include file="navigation.jsp" %>
