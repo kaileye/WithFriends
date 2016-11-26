@@ -10,6 +10,7 @@
         <title>WithFriends - Registration</title>
     </head>
     <body>
+        <br /><br />
         <div class="align-center">
             <img src="images/logo.png" height="20%" width="20%">
         </div>

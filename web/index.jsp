@@ -22,6 +22,7 @@
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
         <c:if test="${loggedin == false || empty loggedin}">
+            <br /><br />
             <div class="align-center">
                 <img src="images/logo.png" height="20%" width="20%">
             </div>
