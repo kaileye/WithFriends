@@ -1,5 +1,8 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -16,15 +19,16 @@
     </head>
     <body>
         <%@ include file="navigation.jsp" %>
+        <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
+            user="cse305"  password="cse305"/>
+        
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="text-center">Friend Requests</h4>
-                        </div>
                         <div class="panel-body">
-                            Not implemented
+                            <button class="btn btn-default groupcreater" type="button">Create Group</button>
                         </div>
                     </div>
                 </div>
@@ -40,5 +44,36 @@
                 </div>
             </div>
         </div>
+        <div id="groupcreationdialog" title="Create Group">
+            <form action="creategroup" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="pg" value="group.jsp">
+                            <input type="text" class="form-control" name="groupname" placeholder="Group name" required="required"></input><br />
+                            <select name="grouptype" required="required">
+                                <option value="friends">Friends</option>
+                                <option value="club">Club</option>
+                                <option value="organization">Organization</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <button type="submit" class="btn pull-right">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+        $("#groupcreationdialog").dialog({
+            autoOpen: false,
+            width: "auto"
+        });
+        
+        
+        $(".groupcreater").click(function () {
+            $("#groupcreationdialog").dialog("open");
+        });
+
+        </script>
     </body>
 </html> 
