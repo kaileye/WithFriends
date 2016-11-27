@@ -106,11 +106,15 @@
                                         <br />
                                         ${post.Content}
                                         <br />
-                                        <div class="btn-group btn-group-xs" role="group">
-                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                            <button class="btn btn-default" type="button">${post.Likes}</button>
-                                        </div>
+                                        <form action="likepost" method="POST">
+                                            <div class="btn-group btn-group-xs" role="group">
+                                                <input type="hidden" name="post" value="${post.PostId}">
+                                                <input type="hidden" name="pg" value="index.jsp">
+                                                <button class="btn btn-default" type="submit" name="likepost" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                                <button class="btn btn-default" type="submit" name="likepost" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                                <button class="btn btn-default" type="button">${post.Likes}</button>
+                                            </div>
+                                        </form>
                                         <br /><br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
@@ -148,6 +152,8 @@
                                                 <br />
                                                 <li>${comment.Content}</li>
                                                 <div class="btn-group btn-group-xs" role="group">
+                                                    <input type="hidden" name="post" value="${post.PostId}">
+                                                    <input type="hidden" name="pg" value="index.jsp">
                                                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                                     <button class="btn btn-default" type="button">${comment.Likes}</button>
