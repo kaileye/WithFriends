@@ -40,7 +40,12 @@ public class CommentServlet extends HttpServlet {
             ps.setString(3, request.getParameter("post"));
             ps.setString(4, currentTimestamp.toString());
             ps.setString(5, request.getParameter("comment"));
-            ps.executeUpdate();
+            int i = ps.executeUpdate();
+            if (i > 0) {
+                ps = connection.prepareStatement("UPDATE posts SET CommentCount=CommentCount+1 WHERE PostId=?");
+                ps.setString(1, request.getParameter("post"));
+                ps.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
