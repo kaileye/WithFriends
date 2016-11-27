@@ -18,6 +18,29 @@
         <%@ include file="navigation.jsp" %>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <h1>Groups</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="text-center">Friend Requests</h4>
+                        </div>
+                        <div class="panel-body">
+                            Not implemented
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="text-center">Groups</h4>
+                        </div>
+                        <div class="panel-body">
+                            Not implemented
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html> 

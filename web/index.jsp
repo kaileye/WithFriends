@@ -105,7 +105,13 @@
                                         </small>
                                         <br />
                                         ${post.Content}
-                                        <br /><br />
+                                        <br />
+                                        <div class="btn-group btn-group-xs" role="group">
+                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                            <button class="btn btn-default" type="button">0</button>
+                                        </div>
+                                        <br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
                                                 <input type="hidden" name="pg" value="index.jsp">
@@ -141,7 +147,12 @@
                                                 </small>
                                                 <br />
                                                 <li>${comment.Content}</li>
-                                                <br />
+                                                <div class="btn-group btn-group-xs" role="group">
+                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                                    <button class="btn btn-default" type="button">0</button>
+                                                </div>
+                                                <br /><br />
                                             </c:forEach>
                                         </ul><div class="clearer"></div>
                                     </div>
