@@ -15,6 +15,13 @@
         <title>WithFriends</title>
     </head>
     <body>
+        <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
+        <% session.setAttribute("user", USER); %>
+
+        <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
+           url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
+           user="cse305"  password="cse305"/>
+
         <%@ include file="navigation.jsp" %>
         <div class="container">
             <div class="row">
@@ -34,7 +41,7 @@
                             <h4 class="text-center">Friends</h4>
                         </div>
                         <div class="panel-body">
-                            Not implemented
+
                         </div>
                     </div>
                 </div>
