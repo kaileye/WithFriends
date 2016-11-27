@@ -37,10 +37,15 @@ public class DeleteCommentServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM comments WHERE CommentId=? AND PosterId=?");
+            PreparedStatement ps = connection.prepareStatement("UPDATE posts SET CommentCount=CommentCount-1 WHERE PostId IN(SELECT PostId FROM comments WHERE CommentId=?)");
             ps.setString(1, request.getParameter("comment"));
-            ps.setString(2, u.getUserId());
-            ps.executeUpdate();
+            int i = ps.executeUpdate();
+            if (i > 0) {
+                ps = connection.prepareStatement("DELETE FROM comments WHERE CommentId=? AND PosterId=?");
+                ps.setString(1, request.getParameter("comment"));
+                ps.setString(2, u.getUserId());
+                ps.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
