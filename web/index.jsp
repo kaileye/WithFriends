@@ -151,13 +151,15 @@
                                                 </small>
                                                 <br />
                                                 <li>${comment.Content}</li>
-                                                <div class="btn-group btn-group-xs" role="group">
-                                                    <input type="hidden" name="post" value="${post.PostId}">
-                                                    <input type="hidden" name="pg" value="index.jsp">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                                    <button class="btn btn-default" type="button">${comment.Likes}</button>
-                                                </div>
+                                                <form action="likecomment" method="POST">
+                                                    <div class="btn-group btn-group-xs" role="group">
+                                                        <input type="hidden" name="comment" value="${comment.CommentId}">
+                                                        <input type="hidden" name="pg" value="index.jsp">
+                                                        <button class="btn btn-default" type="submit" name="likecomment" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                                        <button class="btn btn-default" type="submit" name="likecomment" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                                        <button class="btn btn-default" type="button">${comment.Likes}</button>
+                                                    </div>
+                                                </form>
                                                 <br /><br />
                                             </c:forEach>
                                         </ul><div class="clearer"></div>
