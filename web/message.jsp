@@ -1,5 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -16,6 +20,32 @@
     </head>
     <body>
         <%@ include file="navigation.jsp" %>
-        <h1>Messages</h1>
+        <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
+            user="cse305"  password="cse305"/>
+        
+        <div class="container">
+            <div class="row">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">Inbox</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="well">
+                            <span><b>Sender</b></span> <br />
+                            <span><i>Subject</i></span> <br />
+                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</span> <br /><br />
+                            <button class="btn btn-default" type="button">Delete</button>
+                        </div>
+                        <div class="well">
+                            <span><b>Sender</b></span> <br />
+                            <span><i>Subject</i></span> <br />
+                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</span> <br /><br />
+                            <button class="btn btn-default" type="button">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
