@@ -2,7 +2,7 @@
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
         
 <html lang="en">
     <head>
@@ -68,7 +68,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <input type="hidden" name="pg" value="index.jsp">
-                                        <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="What's on your mind?"></textarea> <br />
+                                        <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="What's on your mind?" required="required"></textarea> <br />
                                         <button type="submit" class="btn pull-right">Post</button>
                                     </div>
                                 </div>
@@ -106,17 +106,22 @@
                                         <br />
                                         ${post.Content}
                                         <br />
-                                        <div class="btn-group btn-group-xs" role="group">
-                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                            <button class="btn btn-default" type="button">${post.Likes}</button>
-                                        </div>
+                                        <form action="likepost" method="POST">
+                                            <div class="btn-group btn-group-xs" role="group">
+                                                <input type="hidden" name="post" value="${post.PostId}">
+                                                <input type="hidden" name="pg" value="index.jsp">
+                                                <c:if test="${plikes.rows.PostId eq post.PostId && plikes.rows.Opinion eq 'like'}">waoo</c:if>
+                                                <button class="btn btn-default" type="submit" name="likepost" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                                <button class="btn btn-default" type="submit" name="likepost" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                                <button class="btn btn-default" type="button">${post.Likes}</button>
+                                            </div>
+                                        </form>
                                         <br /><br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
                                                 <input type="hidden" name="pg" value="index.jsp">
                                                 <input type="hidden" name="post" value="${post.PostId}">
-                                                <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." />
+                                                <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." required="required"/>
                                                 <span class="input-group-btn">     
                                                     <button type="submit" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-comment"></span> Add Comment</button>
                                                 </span> 
@@ -147,11 +152,15 @@
                                                 </small>
                                                 <br />
                                                 <li>${comment.Content}</li>
-                                                <div class="btn-group btn-group-xs" role="group">
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
-                                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                                    <button class="btn btn-default" type="button">${comment.Likes}</button>
-                                                </div>
+                                                <form action="likecomment" method="POST">
+                                                    <div class="btn-group btn-group-xs" role="group">
+                                                        <input type="hidden" name="comment" value="${comment.CommentId}">
+                                                        <input type="hidden" name="pg" value="index.jsp">
+                                                        <button class="btn btn-default" type="submit" name="likecomment" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
+                                                        <button class="btn btn-default" type="submit" name="likecomment" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
+                                                        <button class="btn btn-default" type="button">${comment.Likes}</button>
+                                                    </div>
+                                                </form>
                                                 <br /><br />
                                             </c:forEach>
                                         </ul><div class="clearer"></div>
@@ -171,7 +180,7 @@
                         <div class="form-group">
                             <input type="hidden" name="pg" value="index.jsp">
                             <input type="hidden" name="post" id="postid" value="">
-                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content"></textarea> <br />
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Edit</button>
                         </div>
                     </div>
@@ -186,7 +195,7 @@
                         <div class="form-group">
                             <input type="hidden" name="pg" value="index.jsp">
                             <input type="hidden" name="comment" id="commentid" value="">
-                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content"></textarea> <br />
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Edit</button>
                         </div>
                     </div>

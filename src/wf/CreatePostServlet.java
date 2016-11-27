@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wf.userbean.User;
 
-@WebServlet(name = "PostServlet", urlPatterns = {"/post"})
-public class PostServlet extends HttpServlet {
+@WebServlet(name = "CreatePostServlet", urlPatterns = {"/post"})
+public class CreatePostServlet extends HttpServlet {
     
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";

@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import wf.userbean.User;
 
-@WebServlet(name = "CommentServlet", urlPatterns = {"/comment"})
-public class CommentServlet extends HttpServlet {
+@WebServlet(name = "CreateCommentServlet", urlPatterns = {"/comment"})
+public class CreateCommentServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
