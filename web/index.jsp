@@ -109,7 +109,7 @@
                                         <div class="btn-group btn-group-xs" role="group">
                                             <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                             <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                            <button class="btn btn-default" type="button">0</button>
+                                            <button class="btn btn-default" type="button">${post.Likes}</button>
                                         </div>
                                         <br /><br />
                                         <form action="comment" method="POST">
@@ -150,7 +150,7 @@
                                                 <div class="btn-group btn-group-xs" role="group">
                                                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                                     <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                                    <button class="btn btn-default" type="button">0</button>
+                                                    <button class="btn btn-default" type="button">${comment.Likes}</button>
                                                 </div>
                                                 <br /><br />
                                             </c:forEach>
