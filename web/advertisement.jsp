@@ -16,6 +16,26 @@
     </head>
     <body>
         <%@ include file="navigation.jsp" %>
-        <h1>Merchandise</h1>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Insert Advertisement</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
+                <button class="btn btn-primary btn-lg">Buy</button>
+            </div>
+        </div>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Insert Advertisement 2</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
+                <button class="btn btn-primary btn-lg">Buy</button>
+            </div>
+        </div>
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Insert Advertisement 3</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
+                <button class="btn btn-primary btn-lg">Buy</button>
+            </div>
+        </div>
     </body>
 </html>
