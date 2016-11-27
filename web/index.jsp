@@ -111,7 +111,7 @@
                                             <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                             <button class="btn btn-default" type="button">0</button>
                                         </div>
-                                        <br />
+                                        <br /><br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
                                                 <input type="hidden" name="pg" value="index.jsp">

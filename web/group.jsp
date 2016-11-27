@@ -16,8 +16,6 @@
     </head>
     <body>
         <%@ include file="navigation.jsp" %>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
