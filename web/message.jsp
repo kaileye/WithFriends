@@ -19,6 +19,9 @@
         <title>WithFriends</title>
     </head>
     <body>
+        <c:if test="${loggedin == false || empty loggedin}">
+            <c:redirect url="index.jsp"></c:redirect>
+        </c:if>
         <%@ include file="navigation.jsp" %>
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
