@@ -173,7 +173,7 @@
             </div>
         </c:if>
         
-        <div id="postdialog" title="Edit Post">
+        <div id="postdialog" class="dialog" title="Edit Post">
             <form action="editpost" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -188,7 +188,7 @@
             </form>
         </div>
       
-        <div id="commentdialog" title="Edit Comment">
+        <div id="commentdialog" class="dialog" title="Edit Comment">
             <form action="editcomment" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-body">

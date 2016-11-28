@@ -44,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <div id="groupcreationdialog" title="Create Group">
+        <div id="groupcreationdialog" class="dialog" title="Create Group">
             <form action="creategroup" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-body">

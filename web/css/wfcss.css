@@ -46,3 +46,7 @@ body {
  height:0;
  clear:both;
 }
+
+.dialog { 
+    display: none; 
+}

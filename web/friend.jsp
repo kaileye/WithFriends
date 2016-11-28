@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div id="messagedialog" title="Send Message">
+        <div id="messagedialog" class="dialog" title="Send Message">
             <form action="sendmessage" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-body">
