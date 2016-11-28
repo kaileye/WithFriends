@@ -57,7 +57,7 @@ public class RegistrationServlet extends HttpServlet {
             ps.setString(12, date.toString());
             int i = ps.executeUpdate();
             if (i > 0) {
-                out.println("Successfully registered");
+                request.setAttribute("success", true);
                 data = ps.getGeneratedKeys();
                 if (data.next()){
                     ps = connection.prepareStatement("INSERT INTO pages(OwnerId, PostCount, PageType) VALUES (?,?,?)");
@@ -66,9 +66,12 @@ public class RegistrationServlet extends HttpServlet {
                     ps.setString(3, "user");
                     ps.executeUpdate();
                 }
-            }
+            } 
         } catch(Exception e) {
             e.printStackTrace();
+            request.setAttribute("success", false);
+        } finally {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 

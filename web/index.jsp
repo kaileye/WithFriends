@@ -31,6 +31,20 @@
             <div class="align-center">
                 <img src="images/logo.png" height="20%" width="20%">
             </div>
+            <c:if test="${success == true}">
+                <div class="container">
+                    <div class="alert alert-success">
+                        You've registered for an account! Sign up now.
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${success == false}">
+                <div class="container">
+                    <div class="alert alert-danger">
+                        Failed to register! Try entering valid values or a different email address (can't use same email for multiple accounts).
+                    </div>
+                </div>
+            </c:if>
             <form action="login" method="POST">
                 <div class="container">
                     <div class="row">
