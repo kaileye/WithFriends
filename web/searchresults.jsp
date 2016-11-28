@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   User: Yida Yuan
   Date: 11/27/16
@@ -45,12 +46,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="user" items="${sresults}">
+                                <c:forEach var="re" items="${sresults}">
                                     <tr>
-                                        <td>${user.getFirstname()}</td>
-                                        <td>${user.getLastname()}</td>
-                                        <td>${user.getSex()}</td>
-                                        <td>${user.getEmail()}</td>
+                                        <td>${re.firstname}</td>
+                                        <td>${re.lastname}</td>
+                                        <td>${re.sex}</td>
+                                        <td>${re.email}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

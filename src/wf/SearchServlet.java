@@ -44,6 +44,7 @@ public class SearchServlet extends HttpServlet {
                 newUser.setLastname(data.getString("LastName"));
                 newUser.setSex(data.getString("sex"));
                 newUser.setEmail(data.getString("EmailId"));
+                System.out.println(data.getString("EmailId"));
                 resultUsers.add(newUser);
             }
             session.setAttribute("sresults", resultUsers);
