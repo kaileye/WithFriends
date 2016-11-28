@@ -26,11 +26,19 @@
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
         <sql:query dataSource="${wfdb}" var="groups">
-            SELECT * FROM groups
+            SELECT G.* FROM groups G, groupsmembers M WHERE G.GroupId = M.GroupId AND M.UserId = ${USER.userId};
         </sql:query>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="text-center">Group Invites</h4>
+                        </div>
+                        <div class="panel-body">
+                            Not implemented
+                        </div>
+                    </div>
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <button class="btn btn-default groupcreater" type="button">Create Group</button>
@@ -43,7 +51,30 @@
                             <h4 class="text-center">Groups</h4>
                         </div>
                         <div class="panel-body">
-                            Not implemented
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Group</th>
+                                        <th>Group Page</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="group" items="${groups.rows}">
+                                    <tr>
+                                        <td>${group.GroupName}</td>
+                                        <td><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-log-in"></span></button></td>
+                                        <td>
+                                            <button class="btn btn-default" type="button" title="Leave group"><span class="glyphicon glyphicon-remove-sign"></span></button>
+                                            <c:if test="${group.OwnerId == USER.userId}">
+                                                <button class="btn btn-default grouprenamer" type="submit" title="Rename group" value="${group.GroupId}"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                <button class="btn btn-default" type="button" title="Delete group"><span class="glyphicon glyphicon-trash"></span></button>
+                                            </c:if>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -68,6 +99,20 @@
                 </div>
             </form>
         </div>
+        <div id="grouprenamedialog" class="dialog" title="Rename Group">
+            <form action="renamegroup" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="pg" value="group.jsp">
+                            <input type="hidden" name="groupid" class="groupid" value="">
+                            <input type="text" class="form-control" name="groupname" placeholder="Group name" required="required"></input><br />
+                            <button type="submit" class="btn pull-right">Rename</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
         <script>
         $("#groupcreationdialog").dialog({
             autoOpen: false,
@@ -79,6 +124,16 @@
             $("#groupcreationdialog").dialog("open");
         });
 
+        $("#grouprenamedialog").dialog({
+            autoOpen: false,
+            width: "auto"
+        });
+        
+        
+        $(".grouprenamer").click(function () {
+            $("#grouprenamedialog").dialog("open");
+            $(".groupid").val($(this).val());
+        });
         </script>
     </body>
 </html> 
