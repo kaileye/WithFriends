@@ -83,7 +83,7 @@
                             </div>
                             <div class="panel-body">
                                 <sql:query dataSource="${wfdb}" var="posts">
-                                SELECT DISTINCT P.* FROM posts P LEFT JOIN usersfriends U ON P.PosterId=U.FriendId WHERE P.posterId=${USER.userId} OR (U.UserId=${USER.userId} AND U.FriendId=P.PosterId) ORDER BY PostDateTime DESC LIMIT 30;
+                                SELECT P.* FROM posts P, pages A WHERE A.OwnerId=${USER.userId} AND P.PageId=A.PageId UNION SELECT P.* FROM posts P, pages A, usersfriends F WHERE F.UserId=${USER.userId} AND F.FriendId=A.OwnerId AND P.PageId=A.PageId ORDER BY PostDateTime DESC LIMIT 30;
                                 </sql:query>
                                 <c:forEach var="post" items="${posts.rows}">
                                     <div class="well">
