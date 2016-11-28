@@ -50,7 +50,7 @@
                                                     <div class="panel-body">
                                                         <div class="form-group">
                                                             <h4>${req.FirstName} ${req.LastName}</h4>
-                                                            <h5>${req.Content}</h5>
+                                                            <p>${req.Content}</p>
                                                             <div class="btn-group pull-right">
                                                                 <button type="button" class="btn btn-primary btn-sm">Accept</button>
                                                                 <button type="button" class="btn btn-primary btn-sm">Decline</button>
