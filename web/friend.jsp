@@ -29,7 +29,7 @@
         SELECT U.UserId, U.FirstName, U.LastName, U.Telephone FROM users U, usersfriends F WHERE F.UserId=${USER.userId} AND F.FriendId = U.UserId ORDER BY U.FirstName;
         </sql:query>
         <sql:query dataSource="${wfdb}" var="requests">
-            SELECT U1.FirstName, U1.LastName, F1.Content, F1.RequestId FROM Users U1, FriendsRequests F1 WHERE (U1.UserId, F1.Content) IN
+            SELECT U1.FirstName, U1.LastName, U1.UserId, F1.Content, F1.RequestId FROM Users U1, FriendsRequests F1 WHERE (U1.UserId, F1.Content) IN
             (SELECT F2.SenderId, F2.Content FROM Users U2, FriendsRequests F2 WHERE F2.ReceiverId=U2.UserId AND F2.ReceiverId=${USER.userId});;
         </sql:query>
         <div class="container">
@@ -45,15 +45,16 @@
                                 <c:forEach var="req" items="${requests.rows}">
                                     <tr>
                                         <td>
-                                            <form action="friendunfriend" method="POST">
+                                            <form action="acceptfriends" method="POST">
                                                 <div class="panel panel-default">
                                                     <div class="panel-body">
                                                         <div class="form-group">
                                                             <h4>${req.FirstName} ${req.LastName}</h4>
                                                             <p>${req.Content}</p>
                                                             <input type="hidden" name="reid" value="${req.RequestId}">
+                                                            <input type="hidden" name="usid" value="${req.UserId}">
                                                             <div class="btn-group pull-right">
-                                                                <button type="button" class="btn btn-primary btn-sm" name="status" value="0">Accept</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm" name="status" value="0">Accept</button>
                                                                 <button type="submit" class="btn btn-primary btn-sm" name="status" value="1">Decline</button>
                                                             </div>
                                                         </div>
