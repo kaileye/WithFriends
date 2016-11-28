@@ -68,7 +68,11 @@
                                             <button class="btn btn-default" type="button" title="Leave group"><span class="glyphicon glyphicon-remove-sign"></span></button>
                                             <c:if test="${group.OwnerId == USER.userId}">
                                                 <button class="btn btn-default grouprenamer" type="submit" title="Rename group" value="${group.GroupId}"><span class="glyphicon glyphicon-pencil"></span></button>
-                                                <button class="btn btn-default" type="button" title="Delete group"><span class="glyphicon glyphicon-trash"></span></button>
+                                                <button class="btn btn-default" type="submit" title="Delete group" form="deletegroup"><span class="glyphicon glyphicon-trash"></span></button>
+                                                <form action="deletegroup" method="POST" id="deletegroup">
+                                                    <input type="hidden" name="pg" value="group.jsp">
+                                                    <input type="hidden" name="groupid" value="${group.GroupId}">
+                                                </form>
                                             </c:if>
                                         </td>
                                     </tr>
