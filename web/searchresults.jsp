@@ -21,6 +21,9 @@
         <title>WithFriends</title>
     </head>
     <body>
+        <c:if test="${loggedin == false || empty loggedin}">
+            <c:redirect url="index.jsp"></c:redirect>
+        </c:if>
         <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
         <% session.setAttribute("user", USER); %>
 
