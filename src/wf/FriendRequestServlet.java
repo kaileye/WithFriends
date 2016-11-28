@@ -34,11 +34,19 @@ public class FriendRequestServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO FriendsRequests (SenderId, ReceiverId, Content) VALUES (?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM usersfriends WHERE UserId=? AND FriendId=?");
             ps.setString(1, u.getUserId());
             ps.setString(2, request.getParameter("receiverid"));
-            ps.setString(3, request.getParameter("content"));
-            ps.executeUpdate();
+            data = ps.executeQuery();
+            if (data.next()) {
+                request.setAttribute("alreadyfriends", true);
+            } else {
+                ps = connection.prepareStatement("INSERT INTO FriendsRequests (SenderId, ReceiverId, Content) VALUES (?,?,?)");
+                ps.setString(1, u.getUserId());
+                ps.setString(2, request.getParameter("receiverid"));
+                ps.setString(3, request.getParameter("content"));
+                ps.executeUpdate();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

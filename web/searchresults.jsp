@@ -31,6 +31,13 @@
            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
            user="cse305"  password="cse305"/>
         <%@ include file="navigation.jsp" %>
+        <c:if test="${alreadyfriends == true}">
+            <div class="container">
+                <div class="alert alert-warning alert-dismissable">
+                    You are already friends with this user.
+                </div>
+            </div>
+        </c:if>
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
