@@ -31,13 +31,14 @@ public class SearchServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String searchFname = request.getParameter("q");
+        String searchname = request.getParameter("q");
         resultUsers.clear();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE FirstName=?");
-            ps.setString(1, searchFname);
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM Users WHERE FirstName=? OR LastName=?");
+            ps.setString(1, searchname);
+            ps.setString(2, searchname);
             data = ps.executeQuery();
             while(data.next()) {
                 User newUser = new User();
