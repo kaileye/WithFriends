@@ -42,8 +42,7 @@ public class UnfriendServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            RequestDispatcher rs = request.getRequestDispatcher(request.getParameter("pg"));
-            rs.forward(request, response);
+            request.getRequestDispatcher(request.getParameter("friend.jsp")).forward(request, response);
         }
     }
 }
