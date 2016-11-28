@@ -45,6 +45,10 @@ public class CreateGroupServlet extends HttpServlet {
                     ps.setString(2, "0");
                     ps.setString(3, "group");
                     ps.executeUpdate();
+                    ps = connection.prepareStatement("INSERT INTO groupsmembers(GroupId, UserId) VALUES(?,?)");
+                    ps.setString(1, data.getString(1));
+                    ps.setString(2, u.getUserId());
+                    ps.executeUpdate();
                 }
             }
         } catch (Exception e) {

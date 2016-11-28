@@ -22,7 +22,9 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
-        
+        <sql:query dataSource="${wfdb}" var="groups">
+            SELECT * FROM groups
+        </sql:query>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
