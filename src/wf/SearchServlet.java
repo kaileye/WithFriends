@@ -32,6 +32,7 @@ public class SearchServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         String searchFname = request.getParameter("q");
+        resultUsers.clear();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
