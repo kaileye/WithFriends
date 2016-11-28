@@ -41,6 +41,7 @@ public class SearchServlet extends HttpServlet {
             data = ps.executeQuery();
             while(data.next()) {
                 User newUser = new User();
+                newUser.setUserId(data.getString("UserId"));
                 newUser.setFirstname(data.getString("FirstName"));
                 newUser.setLastname(data.getString("LastName"));
                 newUser.setSex(data.getString("sex"));

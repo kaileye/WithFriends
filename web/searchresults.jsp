@@ -46,6 +46,7 @@
                                     <th>Lastname</th>
                                     <th>Sex</th>
                                     <th>Email</th>
+                                    <th>Friend Request</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +56,11 @@
                                         <td>${re.lastname}</td>
                                         <td>${re.sex}</td>
                                         <td>${re.email}</td>
+                                        <td>
+                                            <button class="btn btn-default friendbt" type="button" value="${re.userId}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -64,5 +70,30 @@
                 </div>
             </div>
         </div>
+        <div id="frienddialog" class="dialog" title="Friend Request">
+            <form action="friendrequest" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="sr" value="searchresults.jsp">
+                            <input type="hidden" name="receiverid" id="receiverid" value="">
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="Message" required="required"></textarea> <br />
+                            <button type="submit" class="btn pull-right">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+            $("#frienddialog").dialog({
+                autoOpen: false,
+                width: "auto"
+            });
+
+            $(".friendbt").click(function () {
+                $("#frienddialog").dialog("open");
+                $("#receiverid").attr('value', $(this).val());
+            });
+        </script>
     </body>
 </html>
