@@ -3,8 +3,7 @@
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-        
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -19,47 +18,22 @@
         <title>WithFriends</title>
     </head>
     <body>
-        <jsp:useBean id="USER" scope="session" class="wf.userbean.User" />
-        <% session.setAttribute("user", USER); %>
-        
+        <%@ include file="navigation.jsp" %>
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
-        
-        <c:if test="${loggedin == false || empty loggedin}">
-            <br /><br />
-            <div class="align-center">
-                <img src="images/logo.png" height="20%" width="20%">
-            </div>
-            <form action="login" method="POST">
-                <div class="container">
-                    <div class="row">
-                        <div class="form_bg">
-                            <h2 class="text-center">Please sign in</h2>
-                            <br/>
-                            <div class="form-group">
-                                <input type="email" class="form-control" id="uname" name="username" placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" class="form-control" id="pwd" name="password" placeholder="Password">
-                            </div>
-                            <c:if test="${validlogin == false}">
-                                <span id="loginInvalid" style="color:red; font-size:12px">The information you entered is incorrect</span>
-                            </c:if>
-                            <c:if test="${validlogin == true || empty validlogin}">
-                                <br />
-                            </c:if>
-                            <div class="align-center">
-                                <button type="submit" class="btn btn-default" id="login">Log In</button>
-                            </div>
-                            <a href="register.jsp">Register</a>
-                        </div>
-                    </div>
+        <sql:query dataSource="${wfdb}" var="groups">
+            SELECT * FROM groups WHERE GroupId=${groupid};
+        </sql:query>
+
+        <c:if test="${member == false}">
+            <div class="container">
+                <div class="alert alert-danger">
+                    You do not have permission to view this group page
                 </div>
-            </form>
+            </div>
         </c:if>
-        <c:if test="${loggedin == true}">
-            <%@ include file="navigation.jsp" %>
+        <c:if test="${member == true}">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4" class="form-control custom-control">
@@ -67,8 +41,9 @@
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <input type="hidden" name="pg" value="index.jsp">
-                                        <input type="hidden" name="pagetype" value="user">
+                                        <input type="hidden" name="pg" value="grouppage?group=${groupid}">
+                                        <input type="hidden" name="pagetype" value="group">
+                                        <input type="hidden" name="groupid" value="${groupid}">
                                         <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="What's on your mind?" required="required"></textarea> <br />
                                         <button type="submit" class="btn pull-right">Post</button>
                                     </div>
@@ -79,11 +54,15 @@
                     <div class="col-sm-8" class="form-control custom-control">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="text-center">News Feed</h4>
+                                <h4 class="text-center">
+                                    <c:forEach var="group" items="${groups.rows}">
+                                      ${group.GroupName}
+                                    </c:forEach>
+                                </h4>
                             </div>
                             <div class="panel-body">
                                 <sql:query dataSource="${wfdb}" var="posts">
-                                SELECT DISTINCT P.* FROM posts P LEFT JOIN usersfriends U ON P.PosterId=U.FriendId WHERE P.posterId=${USER.userId} OR (U.UserId=${USER.userId} AND U.FriendId=P.PosterId) ORDER BY PostDateTime DESC LIMIT 30;
+                                SELECT * FROM posts WHERE PageId=${pageid} ORDER BY PostDateTime DESC LIMIT 30;
                                 </sql:query>
                                 <c:forEach var="post" items="${posts.rows}">
                                     <div class="well">
@@ -97,7 +76,7 @@
                                                             <li><button class="btn btn-link postediter" type="button" style="color:black" value="${post.PostId}">Edit</button></li>
                                                             <form action="deletepost" method="POST">
                                                                 <input type="hidden" name="post" value="${post.PostId}">
-                                                                <input type="hidden" name="pg" value="index.jsp">
+                                                                <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                                                                 <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
                                                             </form>
                                                         </ul>
@@ -110,7 +89,7 @@
                                         <form action="likepost" method="POST">
                                             <div class="btn-group btn-group-xs" role="group">
                                                 <input type="hidden" name="post" value="${post.PostId}">
-                                                <input type="hidden" name="pg" value="index.jsp">
+                                                <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                                                 <c:if test="${plikes.rows.PostId eq post.PostId && plikes.rows.Opinion eq 'like'}">waoo</c:if>
                                                 <button class="btn btn-default" type="submit" name="likepost" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                                 <button class="btn btn-default" type="submit" name="likepost" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
@@ -120,7 +99,7 @@
                                         <br /><br />
                                         <form action="comment" method="POST">
                                             <div class="input-group">
-                                                <input type="hidden" name="pg" value="index.jsp">
+                                                <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                                                 <input type="hidden" name="post" value="${post.PostId}">
                                                 <input type="text" name="comment" class="form-control input-sm chat-input" placeholder="Write your message here..." required="required"/>
                                                 <span class="input-group-btn">     
@@ -143,7 +122,7 @@
                                                             <ul class="dropdown-menu">
                                                                 <li><button class="btn btn-link commentediter" type="button" style="color:black" value="${comment.CommentId}">Edit</button></li>
                                                                 <form action="deletecomment" method="POST">
-                                                                    <input type="hidden" name="pg" value="index.jsp">
+                                                                    <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                                                                     <input type="hidden" name="comment" value="${comment.CommentId}">
                                                                     <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
                                                                 </form>
@@ -156,7 +135,7 @@
                                                 <form action="likecomment" method="POST">
                                                     <div class="btn-group btn-group-xs" role="group">
                                                         <input type="hidden" name="comment" value="${comment.CommentId}">
-                                                        <input type="hidden" name="pg" value="index.jsp">
+                                                        <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                                                         <button class="btn btn-default" type="submit" name="likecomment" value="like"><span class="glyphicon glyphicon-thumbs-up"></span></button>
                                                         <button class="btn btn-default" type="submit" name="likecomment" value="unlike"><span class="glyphicon glyphicon-thumbs-down"></span></button>
                                                         <button class="btn btn-default" type="button">${comment.Likes}</button>
@@ -173,13 +152,13 @@
                 </div>
             </div>
         </c:if>
-        
+            
         <div id="postdialog" class="dialog" title="Edit Post">
             <form action="editpost" method="POST">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="form-group">
-                            <input type="hidden" name="pg" value="index.jsp">
+                            <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                             <input type="hidden" name="post" id="postid" value="">
                             <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Edit</button>
@@ -194,7 +173,7 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="form-group">
-                            <input type="hidden" name="pg" value="index.jsp">
+                            <input type="hidden" name="pg" value="grouppage?group=${groupid}">
                             <input type="hidden" name="comment" id="commentid" value="">
                             <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Edit</button>

@@ -29,14 +29,22 @@ public class CreatePostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String pageType = request.getParameter("pagetype");
         User u = (User)session.getAttribute("user");
         java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("SELECT PageId FROM pages WHERE OwnerId=?");
-            ps.setString(1, u.getUserId());
-            data = ps.executeQuery();
+            PreparedStatement ps;
+            if ("user".equals(pageType)){
+                ps = connection.prepareStatement("SELECT PageId FROM pages WHERE OwnerId=?");
+                ps.setString(1, u.getUserId());
+                data = ps.executeQuery();
+            } else if ("group".equals(pageType)) {
+                ps = connection.prepareStatement("SELECT PageId FROM pages WHERE GroupId=?");
+                ps.setString(1, request.getParameter("groupid"));
+                data = ps.executeQuery();
+            }
             if (data.next()) {
                 ps = connection.prepareStatement("INSERT INTO posts(PosterId, PosterName, PageId, PostDateTime, Content, CommentCount) VALUES(?,?,?,?,?,?)");
                 ps.setString(1, u.getUserId());

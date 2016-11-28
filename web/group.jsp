@@ -41,7 +41,7 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <button class="btn btn-default groupcreater" type="button">Create Group</button>
+                            <button class="btn btn-block groupcreater" type="button">Create Group</button>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                                 <c:forEach var="group" items="${groups.rows}">
                                     <tr>
                                         <td>${group.GroupName}</td>
-                                        <td><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-log-in"></span></button></td>
+                                        <td><a href="grouppage?group=${group.GroupId}" class="btn btn-default" type="button"><span class="glyphicon glyphicon-log-in"></span></a></td>
                                         <td>
                                             <c:if test="${group.OwnerId != USER.userId}">
                                                 <button class="btn btn-default" type="submit" title="Leave group" form="leavegroup">Leave</span</button>
