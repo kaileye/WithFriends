@@ -27,7 +27,7 @@
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
         <sql:query dataSource="${wfdb}" var="messages">
-            SELECT U.FirstName, U.LastName, M.Subject, M.SentDateTime, M.Content
+            SELECT M.MessageId, U.FirstName, U.LastName, M.Subject, M.SentDateTime, M.Content
             FROM Messages M, Users U
             WHERE U.UserId=M.SenderId AND M.ReceiverId=${USER.userId};
         </sql:query>
@@ -40,13 +40,17 @@
                     </div>
                     <div class="panel-body">
                         <c:forEach var="msg" items="${messages.rows}">
-                            <div class="well">
-                                <strong class="pull-left primary-font">${msg.FirstName} ${msg.LastName}</strong>
-                                <small class="pull-right text-muted">${msg.SentDateTime}</small><br />
-                                <span><i>${msg.Subject}</i></span> <br />
-                                <span>${msg.Content}</span> <br /><br />
-                                <button class="btn btn-default" type="button">Delete</button>
-                            </div>
+                            <form action="deletemessage" method="POST">
+                                <div class="well">
+                                    <input type="hidden" name="pg" value="message.jsp">
+                                    <input type="hidden" name="msgid" value="${msg.MessageId}">
+                                    <strong class="pull-left primary-font">${msg.FirstName} ${msg.LastName}</strong>
+                                    <small class="pull-right text-muted">${msg.SentDateTime}</small><br />
+                                    <span><i>${msg.Subject}</i></span><br>
+                                    <span>${msg.Content}</span><br>
+                                    <button type="submit" class="btn pull-right">Delete</button>
+                                </div>
+                            </form>
                         </c:forEach>
                     </div>
                 </div>
