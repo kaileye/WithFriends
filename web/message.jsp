@@ -26,6 +26,11 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
+        <sql:query dataSource="${wfdb}" var="messages">
+            SELECT U.FirstName, U.LastName, M.Subject, M.SentDateTime, M.Content
+            FROM Messages M, Users U
+            WHERE U.UserId=M.SenderId AND M.ReceiverId=${USER.userId};
+        </sql:query>
         
         <div class="container">
             <div class="row">
@@ -34,18 +39,15 @@
                         <h4 class="text-center">Inbox</h4>
                     </div>
                     <div class="panel-body">
-                        <div class="well">
-                            <span><b>Sender</b></span> <br />
-                            <span><i>Subject</i></span> <br />
-                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</span> <br /><br />
-                            <button class="btn btn-default" type="button">Delete</button>
-                        </div>
-                        <div class="well">
-                            <span><b>Sender</b></span> <br />
-                            <span><i>Subject</i></span> <br />
-                            <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</span> <br /><br />
-                            <button class="btn btn-default" type="button">Delete</button>
-                        </div>
+                        <c:forEach var="msg" items="${messages.rows}">
+                            <div class="well">
+                                <strong class="pull-left primary-font">${msg.FirstName} ${msg.LastName}</strong>
+                                <small class="pull-right text-muted">${msg.SentDateTime}</small><br />
+                                <span><i>${msg.Subject}</i></span> <br />
+                                <span>${msg.Content}</span> <br /><br />
+                                <button class="btn btn-default" type="button">Delete</button>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>
