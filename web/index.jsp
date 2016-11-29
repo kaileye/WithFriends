@@ -41,7 +41,7 @@
             <c:if test="${success == false}">
                 <div class="container">
                     <div class="alert alert-danger">
-                        Failed to register! Try entering valid values or a different email address (can't use same email for multiple accounts).
+                        Failed to register! Try entering valid values or a different email address (can't use same email for multiple accounts). If not on Google Chrome, enter birthday in the format: YYYY-MM-DD.
                     </div>
                 </div>
             </c:if>
