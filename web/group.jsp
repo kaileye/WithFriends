@@ -28,6 +28,9 @@
         <sql:query dataSource="${wfdb}" var="groups">
             SELECT G.* FROM groups G, groupsmembers M WHERE G.GroupId = M.GroupId AND M.UserId = ${USER.userId};
         </sql:query>
+        <sql:query dataSource="${wfdb}" var="grouprequests">
+            SELECT G.GroupName, U.FirstName, U.LastName, R.RequestId, R.GroupId, R.Content FROM groupsrequests R, groups G, users U WHERE R.ReceiverId=${USER.userId} AND R.SenderId=U.UserId AND R.GroupId=G.GroupId;
+        </sql:query>
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
@@ -36,7 +39,32 @@
                             <h4 class="text-center">Group Invites</h4>
                         </div>
                         <div class="panel-body">
-                            Not implemented
+                            <table class="table table-hover">
+                                <tbody>
+                                <c:forEach var="grouprequest" items="${grouprequests.rows}">
+                                    <tr>
+                                        <td>
+                                            <form action="acceptgroups" method="POST">
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <h4>${grouprequest.GroupName} (${grouprequest.FirstName} ${grouprequest.LastName})</h4>
+                                                            <p>${grouprequest.Content}</p>
+                                                            <input type="hidden" name="reid" value="${grouprequest.RequestId}">
+                                                            <input type="hidden" name="gpid" value="${grouprequest.GroupId}">
+                                                            <div class="btn-group pull-right">
+                                                                <button type="submit" class="btn btn-primary btn-sm" name="status" value="0">Accept</button>
+                                                                <button type="submit" class="btn btn-primary btn-sm" name="status" value="1">Decline</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <div class="panel panel-default">

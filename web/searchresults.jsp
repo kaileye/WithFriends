@@ -1,11 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   User: Yida Yuan
   Date: 11/27/16
   Time: 5:21 PM
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
+<%@ page import="javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+        
 <html>
     <head>
         <meta charset="UTF-8">
@@ -30,11 +33,21 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
            user="cse305"  password="cse305"/>
+        <sql:query dataSource="${wfdb}" var="groups">
+            SELECT * FROM groups WHERE OwnerId=${USER.userId};
+        </sql:query>
         <%@ include file="navigation.jsp" %>
         <c:if test="${alreadyfriends == true}">
             <div class="container">
                 <div class="alert alert-warning alert-dismissable">
                     You are already friends with this user.
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${alreadygroup == true}">
+            <div class="container">
+                <div class="alert alert-warning alert-dismissable">
+                    User is already in the group.
                 </div>
             </div>
         </c:if>
@@ -52,8 +65,8 @@
                                     <th>Firstname</th>
                                     <th>Lastname</th>
                                     <th>Sex</th>
-                                    <th>Email</th>
                                     <th>Friend Request</th>
+                                    <th>Group Invite</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -62,9 +75,13 @@
                                         <td>${re.firstname}</td>
                                         <td>${re.lastname}</td>
                                         <td>${re.sex}</td>
-                                        <td>${re.email}</td>
                                         <td>
                                             <button class="btn btn-default friendbt" type="button" value="${re.userId}">
+                                                <span class="glyphicon glyphicon-envelope"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-default groupbt" type="button" value="${re.userId}">
                                                 <span class="glyphicon glyphicon-envelope"></span>
                                             </button>
                                         </td>
@@ -83,7 +100,26 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <input type="hidden" name="sr" value="searchresults.jsp">
-                            <input type="hidden" name="receiverid" id="receiverid" value="">
+                            <input type="hidden" name="receiverid" class="receiverid" value="">
+                            <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="Message" required="required"></textarea> <br />
+                            <button type="submit" class="btn pull-right">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="groupdialog" class="dialog" title="Group Invite">
+            <form action="grouprequest" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="sr" value="searchresults.jsp">
+                            <input type="hidden" name="receiverid" class="receiverid" value="">
+                            <select name="groupid" required="required">
+                                <c:forEach var="group" items="${groups.rows}">
+                                    <option value="${group.GroupId}">${group.GroupName}</option>
+                                </c:forEach>
+                            </select> <br /><br />
                             <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="Message" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Send</button>
                         </div>
@@ -99,7 +135,17 @@
 
             $(".friendbt").click(function () {
                 $("#frienddialog").dialog("open");
-                $("#receiverid").attr('value', $(this).val());
+                $(".receiverid").attr('value', $(this).val());
+            });
+            
+            $("#groupdialog").dialog({
+                autoOpen: false,
+                width: "auto"
+            });
+
+            $(".groupbt").click(function () {
+                $("#groupdialog").dialog("open");
+                $(".receiverid").attr('value', $(this).val());
             });
         </script>
     </body>
