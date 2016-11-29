@@ -88,7 +88,7 @@
                                     <tr>
                                         <td>${friend.FirstName} ${friend.LastName}</td>
                                         <td>${friend.Telephone}</td>
-                                        <td><button class="btn btn-default messagesender" type="button" val="${friend.UserId}"><span class="glyphicon glyphicon-envelope"></span></button></td>
+                                        <td><button class="btn btn-default messagesender" type="button" value="${friend.UserId}"><span class="glyphicon glyphicon-envelope"></span></button></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -104,7 +104,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <input type="hidden" name="pg" value="friend.jsp">
-                            <input type="hidden" name="receiverid" id="receiverid" value="">
+                            <input type="hidden" name="receiverid" class="receiverid" value="">
                             <input type="text" class="form-control" name="subject" placeholder="Subject" required="required"></input><br />
                             <textarea class="form-control" rows="5" cols="60" style="resize:none" maxlength="2000" name="content" placeholder="Message" required="required"></textarea> <br />
                             <button type="submit" class="btn pull-right">Send</button>
@@ -122,7 +122,7 @@
         
         $(".messagesender").click(function () {
             $("#messagedialog").dialog("open");
-            $("#receiverid").val($(this).val());
+            $(".receiverid").attr('value', $(this).val());
         });
 
         </script>
