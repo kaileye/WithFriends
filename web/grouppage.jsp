@@ -28,7 +28,12 @@
         <sql:query dataSource="${wfdb}" var="groups">
             SELECT * FROM groups WHERE GroupId=${groupid};
         </sql:query>
-
+        <sql:query dataSource="${wfdb}" var="owners">
+            SELECT U.* FROM groups G, users U WHERE G.GroupId=${groupid} AND U.UserId=G.OwnerId;
+        </sql:query>
+        <sql:query dataSource="${wfdb}" var="members">
+            SELECT U.* FROM groupsmembers M, users U, groups G WHERE M.GroupId=${groupid} AND M.UserId=U.UserId AND G.GroupId=${groupid} AND G.OwnerId!=U.UserId ORDER BY U.FirstName;
+        </sql:query>
         <c:if test="${member == false}">
             <div class="container">
                 <div class="alert alert-danger">
@@ -53,6 +58,31 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="text-center">Members</h4>
+                            </div>
+                            <div class="panel-body">
+                                <c:forEach var="owner" items="${owners.rows}">
+                                    ${owner.FirstName} ${owner.LastName}
+                                </c:forEach>
+                                <br /><br />
+                                <c:forEach var="member" items="${members.rows}">
+                                    <form action="groupremoveuser" method="POST">
+                                    ${member.FirstName} ${member.LastName} 
+                                    <c:forEach var="owner" items="${owners.rows}">
+                                        <c:if test="${owner.UserId == USER.userId}">
+                                            <input type="hidden" name="pg" value="grouppage?group=${groupid}">
+                                            <input type="hidden" name="gpid" value="${groupid}">
+                                            <input type="hidden" name="member" value="${member.UserId}">
+                                            <button class="btn btn-danger btn-xs" type="submit"><span class="glyphicon glyphicon-remove"></span></button>
+                                        </c:if>
+                                    </c:forEach>
+                                    </form>
+                                    <br />
+                                </c:forEach>   
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-8" class="form-control custom-control">
                         <div class="panel panel-default">
@@ -72,19 +102,19 @@
                                         <strong class="pull-left primary-font">${post.PosterName}</strong>
                                         <small class="pull-right text-muted">
                                             <span class="glyphicon glyphicon-time"></span>${post.PostDateTime}
-                                                <c:if test="${post.PosterId == USER.userId}">
-                                                    <span class="dropdown">
-                                                        <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
-                                                        <ul class="dropdown-menu">
-                                                            <li><button class="btn btn-link postediter" type="button" style="color:black" value="${post.PostId}">Edit</button></li>
-                                                            <form action="deletepost" method="POST">
-                                                                <input type="hidden" name="post" value="${post.PostId}">
-                                                                <input type="hidden" name="pg" value="grouppage?group=${groupid}">
-                                                                <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
-                                                            </form>
-                                                        </ul>
-                                                    </span>
-                                                </c:if>
+                                            <c:if test="${post.PosterId == USER.userId}">
+                                                <span class="dropdown">
+                                                    <span class="caret" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></span>
+                                                    <ul class="dropdown-menu">
+                                                        <li><button class="btn btn-link postediter" type="button" style="color:black" value="${post.PostId}">Edit</button></li>
+                                                        <form action="deletepost" method="POST">
+                                                            <input type="hidden" name="post" value="${post.PostId}">
+                                                            <input type="hidden" name="pg" value="grouppage?group=${groupid}">
+                                                            <li><button class="btn btn-link" type="submit" style="color:black">Delete</button></li>
+                                                        </form>
+                                                    </ul>
+                                                </span>
+                                            </c:if>
                                         </small>
                                         <br />
                                         ${post.Content}
