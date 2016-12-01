@@ -23,6 +23,7 @@
                 </form>
             </div>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="managers.jsp">Managers</a></li>
                 <li><a href="friend.jsp">Friends</a></li>
                 <li><a href="group.jsp">Groups</a></li>
                 <li><a href="message.jsp">Messages</a><li>
