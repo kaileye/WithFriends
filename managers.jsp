@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="text-center">Test</h4>
+                        <h4 class="text-center">Manager Exclusive Actions</h4>
                     </div>
                                                                 <BODY>
                                            <H1>Monthly Sales Report</H1>
@@ -56,13 +56,20 @@
                                                
                                            </FORM>
                                        </BODY>
+                                       <BODY>
+                                           <H1>See List of all Advertisements</H1>
+                                                <form action="showallads" method="POST">
+                                                        <BR>
+                                               <INPUT TYPE="SUBMIT" value="Show All Ads">
+                                                </form>
+                                       </BODY>
+
                     <div class="panel-body">
-                     
                     </div>
                 </div>
             </div>
             
- 
+            
  
         </div>
     </body>
