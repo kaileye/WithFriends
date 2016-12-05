@@ -18,12 +18,47 @@ public class Sale implements Serializable {
     private String salesDateTime;
     private String adId;
     private String units;
+    private String unitPrice;
     private String itemName;
     private String firstName;
     private String lastName;
+    private int sumOfSale;
+    private String sumOfSaleString;
+    private String adType;
+    public String columnTotal = "0";
     
     public Sale() {
         
+    }
+    
+    public String getAdType()
+    {
+        return adType;
+        
+    }
+    
+    public int getSumOfSale()
+    {
+        return sumOfSale;
+        
+    }
+   
+    public String getSumOfSaleString()
+    {
+        return sumOfSaleString;
+    }
+    
+     public String getColumnTotal()
+    {
+        return columnTotal;
+    }
+    
+    public void generateSumOfSaleString()
+    {
+        int intunits = Integer.parseInt(units);
+        int intunitprice = Integer.parseInt(unitPrice);
+        sumOfSale = intunits * intunitprice;
+        sumOfSaleString = Integer.toString(sumOfSale);
     }
     
      public String getTransactionId() {
@@ -61,6 +96,12 @@ public class Sale implements Serializable {
          public String getLastName() {
         return lastName;
     }
+         
+             public String getUnitPrice() {
+        return unitPrice;
+    }
+         
+     
     
     public void setTransactionId(String TransactionId) {
         this.transactionId = TransactionId;
@@ -97,4 +138,26 @@ public class Sale implements Serializable {
       public void setItemName(String ItemName) {
         this.itemName = ItemName;
     }
+      
+       public void setUnitPrice(String UnitPrice) {
+        this.unitPrice = UnitPrice;
+    }
+       
+       public void setAdType(String AdType)
+       {this.adType = AdType;
+       }
+       
+        public void setColumnTotal(String columnTotal)
+       {this.columnTotal = columnTotal;
+       }
+        
+        public void addColumnTotal(String s)
+        {
+          int toadd = Integer.parseInt(s);
+          int current = Integer.parseInt(columnTotal);
+           current = current + toadd;
+         columnTotal = Integer.toString(current);
+        }
+       
+     
 }
