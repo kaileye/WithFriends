@@ -26,6 +26,7 @@ public class Sale implements Serializable {
     private String sumOfSaleString;
     private String adType;
     public String columnTotal = "0";
+    public String employeeId;
     
     public Sale() {
         
@@ -34,6 +35,12 @@ public class Sale implements Serializable {
     public String getAdType()
     {
         return adType;
+        
+    }
+    
+    public String getEmployeeId()
+    {
+        return employeeId;
         
     }
     
@@ -150,6 +157,11 @@ public class Sale implements Serializable {
         public void setColumnTotal(String columnTotal)
        {this.columnTotal = columnTotal;
        }
+        
+          public void setEmployeeId(String s)
+       {this.employeeId = s;
+       }
+        
         
         public void addColumnTotal(String s)
         {

@@ -91,6 +91,13 @@
                                                
                                            </FORM>
                                        </BODY>
+                                       <BODY>
+                                           <H1>See which customer representative generated most total revenue</H1>
+                                                <form action="richestrep" method="POST">
+                                                        <BR>
+                                               <INPUT TYPE="SUBMIT" value="richestrep">
+                                                </form>
+                                       </BODY>
                     <div class="panel-body">
                     </div>
                 </div>
