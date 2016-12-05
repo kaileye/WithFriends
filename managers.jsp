@@ -105,6 +105,13 @@
                                                <INPUT TYPE="SUBMIT" value="richestcus">
                                                 </form>
                                        </BODY>
+                                       <BODY>
+                                           <H1>Produce a list of most active items</H1>
+                                                <form action="activeitems" method="POST">
+                                                        <BR>
+                                               <INPUT TYPE="SUBMIT" value="activeitems">
+                                                </form>
+                                       </BODY>
                     <div class="panel-body">
                     </div>
                 </div>

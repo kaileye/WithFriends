@@ -20,9 +20,25 @@ public class Advertisements implements Serializable {
     private String itemName;
      private String content;
     private String unitPrice;
+    private String activity = "0";
+    private String temp; //holds units for temporary calculations
+    
     
     public Advertisements() {
         
+    }
+    
+    public String getActivity() {
+        return activity;
+    }
+    
+     public int getActivityInt() {
+        int current = Integer.parseInt(activity);
+        return current;
+    }
+    
+    public String getTemp() {
+        return temp;
     }
     
     public String getAdId() {
@@ -87,4 +103,16 @@ public class Advertisements implements Serializable {
            public void setUnitPrice(String unitPrice) {
         this.unitPrice = unitPrice;
     }
+           
+           public void setActivity(String s){activity = s;}
+           
+           public void setTemp(String s){temp = s;}
+           
+           public void addToActivity(String s)
+                {
+                    int toadd = Integer.parseInt(s);
+                     int current = Integer.parseInt(activity);
+                    current = current + toadd;
+                    activity = Integer.toString(current);
+                }
 }
