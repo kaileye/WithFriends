@@ -112,6 +112,16 @@
                                                <INPUT TYPE="SUBMIT" value="activeitems">
                                                 </form>
                                        </BODY>
+                                       <BODY>
+                                            <H1>Produce a list of all customers who have purchased a particular item</H1>
+                                           <FORM ACTION="customeritemsearch" METHOD="POST">
+                                               Please enter ID of Item:
+                                               <INPUT TYPE="TEXT" NAME="getcustomeritemsearch">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                     <div class="panel-body">
                     </div>
                 </div>
