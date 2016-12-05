@@ -122,6 +122,17 @@
                                                
                                            </FORM>
                                        </BODY>
+                                       
+                                       <BODY>
+                                            <H1>Produce a list of all items for a given company</H1>
+                                           <FORM ACTION="companysearch" METHOD="POST">
+                                               Please enter Name of Company:
+                                               <INPUT TYPE="TEXT" NAME="getcompanysearch">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                     <div class="panel-body">
                     </div>
                 </div>
