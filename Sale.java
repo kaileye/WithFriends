@@ -18,6 +18,9 @@ public class Sale implements Serializable {
     private String salesDateTime;
     private String adId;
     private String units;
+    private String itemName;
+    private String firstName;
+    private String lastName;
     
     public Sale() {
         
@@ -46,6 +49,18 @@ public class Sale implements Serializable {
       public String getUnits() {
         return units;
     }
+      
+       public String getItemName() {
+        return itemName;
+    }
+       
+        public String getFirstName() {
+        return firstName;
+    }
+        
+         public String getLastName() {
+        return lastName;
+    }
     
     public void setTransactionId(String TransactionId) {
         this.transactionId = TransactionId;
@@ -71,4 +86,15 @@ public class Sale implements Serializable {
         this.units = Units;
     }
     
+      public void setFirstName(String FirstName) {
+        this.firstName = FirstName;
+    }
+      
+        public void setLastName(String LastName) {
+        this.lastName = LastName;
+    }
+    
+      public void setItemName(String ItemName) {
+        this.itemName = ItemName;
+    }
 }

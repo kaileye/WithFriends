@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<%-- 
+    Document   : managers
+    Created on : Dec 4, 2016, 7:53:53 PM
+    Author     : danie
+--%>
 <%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <%@ page import="javax.servlet.http.*,javax.servlet.*" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -62,6 +66,16 @@
                                                         <BR>
                                                <INPUT TYPE="SUBMIT" value="Show All Ads">
                                                 </form>
+                                       </BODY>
+                                       <BODY>
+                                           <H1>Search all Transactions by User Name or Item Name</H1>
+                                           <FORM ACTION="transactionsearch" METHOD="POST">
+                                               Please enter name (either of Product of or Customer):
+                                               <INPUT TYPE="TEXT" NAME="gettransactionsearch">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
                                        </BODY>
 
                     <div class="panel-body">
