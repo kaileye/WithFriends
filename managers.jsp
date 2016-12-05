@@ -98,6 +98,13 @@
                                                <INPUT TYPE="SUBMIT" value="richestrep">
                                                 </form>
                                        </BODY>
+                                        <BODY>
+                                           <H1>Determine which customer generated most total revenue</H1>
+                                                <form action="richestcus" method="POST">
+                                                        <BR>
+                                               <INPUT TYPE="SUBMIT" value="richestcus">
+                                                </form>
+                                       </BODY>
                     <div class="panel-body">
                     </div>
                 </div>

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
  * @author danie
  */
 
-@WebServlet(name = "RichestRepServlet", urlPatterns = {"/richestrep"})
-public class RichestRepServlet extends HttpServlet {
+@WebServlet(name = "RichestCustomerServlet", urlPatterns = {"/richestcus"})
+public class RichestCustomerServlet extends HttpServlet {
 
     private static String dbUsername = "cse305";
     private static String dbPassward = "cse305";
@@ -31,21 +31,21 @@ public class RichestRepServlet extends HttpServlet {
     private static Connection connection;
     private ResultSet data;
     private ArrayList<Sale> allsales = new ArrayList<>(55);
-   private ArrayList<User> resultrichestrep = new ArrayList<>(20);
+   private ArrayList<User> resultrichestcus = new ArrayList<>(20);
 private ArrayList<User> arraytopass = new ArrayList<>(1);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
-        resultrichestrep.clear();
-        allsales.clear();
+        resultrichestcus.clear();
         arraytopass.clear();
+        allsales.clear();
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("SELECT s.*, A.ItemName, U.FirstName, U.LastName, A.UnitPrice, A.Type, A.EmployeeId FROM sales s INNER JOIN users U on U.UserId = s.CustomerId LEFT JOIN advertisements A on A.ADId = s.ADId");
+            PreparedStatement ps = connection.prepareStatement("SELECT s.*, A.ItemName, U.FirstName, U.LastName, A.UnitPrice, A.Type FROM sales s INNER JOIN users U on U.UserId = s.CustomerId LEFT JOIN advertisements A on A.ADId = s.ADId");
             
             data = ps.executeQuery();
                 
@@ -53,7 +53,6 @@ private ArrayList<User> arraytopass = new ArrayList<>(1);
                  Sale newsale = new Sale();
                                                 newsale.setTransactionId(data.getString("TransactionId"));
                                                 newsale.setCustomerId(data.getString("CustomerId"));
-                                                newsale.setEmployeeId(data.getString("EmployeeId"));
                                                 newsale.setAccountNumber(data.getString("AccountNumber"));
                                                 newsale.setSalesDateTime(data.getString("SalesDateTime"));
                                                 newsale.setAdId(data.getString("ADId"));
@@ -74,20 +73,20 @@ private ArrayList<User> arraytopass = new ArrayList<>(1);
                                                         * If not and employee doesnt exist in array: create employee in array and add sum
                                                         */
                                                 boolean checker = false;
-                                                for (int i = 0; i < resultrichestrep.size(); i++)
+                                                for (int i = 0; i < resultrichestcus.size(); i++)
                                                 {
-                                                    if (resultrichestrep.get(i).getEmployeeId().equalsIgnoreCase(newsale.getEmployeeId()))
-                                                        {resultrichestrep.get(i).addToRevenueGenerated(newsale.getSumOfSaleString());
+                                                    if (resultrichestcus.get(i).getUserId().equalsIgnoreCase(newsale.getCustomerId()))
+                                                        {resultrichestcus.get(i).addToRevenueGenerated(newsale.getSumOfSaleString());
                                                         checker = true;
                                                         }
                                   
                                                 }
                                                 if  (!(checker))
                                                         {
-                                                            User newemployee = new User();
-                                                            newemployee.setEmployeeId(newsale.getEmployeeId());
-                                                            newemployee.addToRevenueGenerated(newsale.getSumOfSaleString());
-                                                            resultrichestrep.add(newemployee);
+                                                            User newcus = new User();
+                                                            newcus.setUserId(newsale.getCustomerId());
+                                                            newcus.addToRevenueGenerated(newsale.getSumOfSaleString());
+                                                            resultrichestcus.add(newcus);
                                                         }
                                                 
             }
@@ -100,14 +99,14 @@ private ArrayList<User> arraytopass = new ArrayList<>(1);
             
             int high = 0;
             String highs = "";
-            String richestrepid = "0";
-            for (int i = 0; i < resultrichestrep.size(); i++)
+            String richestcusid = "0";
+            for (int i = 0; i < resultrichestcus.size(); i++)
             {
-                if (resultrichestrep.get(i).getRevenueGeneratedInt() > high)
+                if (resultrichestcus.get(i).getRevenueGeneratedInt() > high)
                     {
-                        high = resultrichestrep.get(i).getRevenueGeneratedInt();
-                        richestrepid = resultrichestrep.get(i).getEmployeeId();
-                        highs = resultrichestrep.get(i).getRevenueGenerated();
+                        high = resultrichestcus.get(i).getRevenueGeneratedInt();
+                        richestcusid = resultrichestcus.get(i).getUserId();
+                        highs = resultrichestcus.get(i).getRevenueGenerated();
                     }
             }
             
@@ -118,7 +117,7 @@ private ArrayList<User> arraytopass = new ArrayList<>(1);
                                                         */
             
             PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM users x WHERE x.UserId = ?");
-            ps2.setString(1, richestrepid);
+            ps2.setString(1, richestcusid);
             data = ps2.executeQuery();
             while(data.next()) 
                 {
@@ -131,11 +130,11 @@ private ArrayList<User> arraytopass = new ArrayList<>(1);
                 }
             
             
-             session.setAttribute("RichestRepResults", arraytopass);
+             session.setAttribute("RichestCusResults", arraytopass);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-               RequestDispatcher rs = request.getRequestDispatcher("richestrep.jsp");
+               RequestDispatcher rs = request.getRequestDispatcher("richestcus.jsp");
             rs.forward(request, response);
         }
     }
