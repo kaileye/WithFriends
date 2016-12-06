@@ -55,6 +55,16 @@
                                            </FORM>
                                        </BODY>
                                        <BODY>
+                                           <H1>Enter Customer's ID to get their Groups</H1>
+                                           <FORM ACTION="customergrouphistory" METHOD="POST">
+                                               Please enter ID of Customer
+                                               <INPUT TYPE="TEXT" NAME="getcustomergrouphistory">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
+                                       <BODY>
                                            <H1>Enter Customer's ID to get their account history</H1>
                                            <FORM ACTION="customeraccounthistory" METHOD="POST">
                                                Please enter ID of Customer
