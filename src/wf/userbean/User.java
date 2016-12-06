@@ -27,6 +27,8 @@ public class User implements Serializable {
     // Employee part: applies to only employees
     private String ssn;
     private String hourlyRate;
+    private String revenueGenerated = "0";
+    private String employeeId;
 
     public User() {
         
@@ -109,6 +111,22 @@ public class User implements Serializable {
         return hourlyRate;
     }
 
+    public String getRevenueGenerated()
+    {
+        return revenueGenerated;
+    }
+    
+     public int getRevenueGeneratedInt()
+    {
+        int revgen = Integer.parseInt(revenueGenerated);
+        return revgen;
+    }
+    
+    public String getEmployeeId()
+    {
+        return employeeId;
+    }
+    
     // Setters
     public void setUserId(String userId) {
         this.userId = userId;
@@ -185,5 +203,21 @@ public class User implements Serializable {
     public void setHourlyRate(String hourlyRate) {
         this.hourlyRate = hourlyRate;
     }
+    
+    public void setRevenueGenerated(String s)
+    {   this.revenueGenerated = s;
+    }
+    
+    public void addToRevenueGenerated(String s)
+    {   int toadd = Integer.parseInt(s);
+          int current = Integer.parseInt(revenueGenerated);
+          current = current + toadd;
+         revenueGenerated = Integer.toString(current);
+    }
+    
+    public void setEmployeeId(String s)
+        {
+            employeeId = s;
+        }
 }
 
