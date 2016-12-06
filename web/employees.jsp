@@ -41,12 +41,29 @@
             <div class="row">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="text-center">Test</h4>
+                        <h4 class="text-center">Employee Specific Actions</h4>
                     </div>
                     <div class="panel-body">
-                        <c:forEach var="test" items="${employees.rows}">
-                            
-                        </c:forEach>
+                        <BODY>
+                                           <H1>Produce a list of item suggestions for a given customer</H1>
+                                           <FORM ACTION="itemsuggestions" METHOD="POST">
+                                               Please enter customer id:
+                                               <INPUT TYPE="TEXT" NAME="itemsuggestionsform">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
+                                       <BODY>
+                                           <H1>Enter Customer's ID to get their account history</H1>
+                                           <FORM ACTION="customeraccounthistory" METHOD="POST">
+                                               Please enter ID of Customer
+                                               <INPUT TYPE="TEXT" NAME="getcustomeraccounthistory">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                     </div>
                 </div>
             </div>
