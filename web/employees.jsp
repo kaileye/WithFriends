@@ -81,6 +81,16 @@
                                                <INPUT TYPE="SUBMIT" value="activeitems">
                                                 </form>
                                        </BODY>
+                                       <BODY>
+                                           <H1>Enter a Company Name to produce their mailing list</H1>
+                                           <FORM ACTION="companymailinglist" METHOD="POST">
+                                               Please enter name of Company
+                                               <INPUT TYPE="TEXT" NAME="getcompanymailinglist">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                     </div>
                 </div>
             </div>
