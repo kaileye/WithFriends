@@ -42,7 +42,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone, AccountCreationDate) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO users(FirstName, LastName, sex,EmailId, PWD, DOB, Address, City, State, Zipcode, Telephone, AccountCreationDate, Preference) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
             ps.setString(1, fname);
             ps.setString(2, lname);
             ps.setString(3, sex);
@@ -55,6 +55,7 @@ public class RegistrationServlet extends HttpServlet {
             ps.setString(10, zipcode);
             ps.setString(11, telephone);
             ps.setString(12, date.toString());
+            ps.setString(13, request.getParameter("preferences"));
             int i = ps.executeUpdate();
             if (i > 0) {
                 request.setAttribute("success", true);
@@ -64,6 +65,11 @@ public class RegistrationServlet extends HttpServlet {
                     ps.setString(1, data.getString(1));
                     ps.setString(2, "0");
                     ps.setString(3, "user");
+                    ps.executeUpdate();
+                    
+                    ps = connection.prepareStatement("INSERT INTO UsersAccounts(UserId, AccountNumber) VALUES (?,?)");
+                    ps.setString(1, data.getString(1));
+                    ps.setString(2, request.getParameter("accountnumber"));
                     ps.executeUpdate();
                 }
             } 

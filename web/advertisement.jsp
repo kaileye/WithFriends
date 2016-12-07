@@ -25,27 +25,17 @@
         <sql:setDataSource var="wfdb" driver="com.mysql.jdbc.Driver"
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
-        
+        <sql:query dataSource="${wfdb}" var="advertisements">
+            SELECT A.* FROM advertisements A, users U WHERE U.UserId = ${USER.userId} AND U.preference = A.type ORDER BY A.PostDateTime DESC;
+        </sql:query>
+        <c:forEach var="advertisement" items="${advertisements.rows}">
         <div class="jumbotron">
             <div class="container">
-                <h1>Insert Advertisement</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
-                <button class="btn btn-primary btn-lg">Buy</button>
+                <h1>${advertisement.ItemName}</h1>
+                <p>${advertisement.Content}</p>
+                <button class="btn btn-primary btn-lg">$${advertisement.UnitPrice}</button>
             </div>
         </div>
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Insert Advertisement 2</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
-                <button class="btn btn-primary btn-lg">Buy</button>
-            </div>
-        </div>
-        <div class="jumbotron">
-            <div class="container">
-                <h1>Insert Advertisement 3</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus feugiat rutrum imperdiet. Suspendisse urna justo, feugiat quis lectus vitae, feugiat sollicitudin lacus. Cras laoreet condimentum facilisis. Aliquam vel imperdiet purus, non cursus nibh. Vestibulum consectetur eros sit amet dui lobortis pharetra vitae ultricies nunc. Suspendisse potenti. Donec id tincidunt magna, eget tempor lacus. Donec in auctor mi, quis vestibulum justo. Aliquam vitae pharetra risus, vitae luctus dui. Curabitur ultricies pellentesque nisl, in dapibus odio auctor sed.</p>
-                <button class="btn btn-primary btn-lg">Buy</button>
-            </div>
-        </div>
+        </c:forEach>
     </body>
 </html>

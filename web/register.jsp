@@ -32,6 +32,13 @@
                             <input type="text" class="form-control" name="state" placeholder="State" required="required"/> <br />
                             <input type="number" class="form-control" name="zipcode" placeholder="Zip Code" required="required"/> <br />
                             <input type="number" class="form-control" name="telephone" placeholder="Telephone" required="required"/> <br />
+                            <input type="number" class="form-control" name="accountnumber" placeholder="Bank Account Number" required="required"/> <br />
+                            Ad Preference: 
+                            <select name="preferences"> 
+                                <option value="cars">Cars</option>
+                                <option value="computers">Computers</option>
+                                <option value ="clothing">Clothing</option>
+                            </select>
                         </div>
                         <div class="align-center">
                             <button class="btn btn-default" type="submit">Sign Up</button>
