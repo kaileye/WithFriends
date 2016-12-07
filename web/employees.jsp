@@ -110,6 +110,18 @@
                                                
                                            </FORM>
                                        </BODY>
+                                        <BODY>
+                                           <H1>Delete Advertisement</H1>
+                                           <FORM ACTION="deletead" METHOD="POST">
+                                               Please enter ID of ad to delete
+                                               <INPUT TYPE="TEXT" NAME="getdeletead">
+                                       
+                                               <input type="hidden" name="pg" value="index.jsp">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                 </div>
             </div>
         </div>
