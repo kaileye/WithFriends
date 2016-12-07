@@ -91,7 +91,25 @@
                                                
                                            </FORM>
                                        </BODY>
-                    </div>
+                                       <BODY>
+                                           <H1>Create an Advertisement</H1>
+                                           <FORM ACTION="createad" METHOD="POST">
+                                               Please enter Advertisement Type:
+                                               <INPUT TYPE="TEXT" NAME="createadtype">
+                                               Please enter Company of Ad:
+                                               <INPUT TYPE="TEXT" NAME="createadcompany">
+                                               Please enter Item Name:
+                                               <INPUT TYPE="TEXT" NAME="createadname">
+                                               please enter Content of AD:
+                                               <INPUT TYPE="TEXT" NAME="createadcontent">
+                                                please enter price of each unit:
+                                               <INPUT TYPE="TEXT" NAME="createadprice">
+                                               <input type="hidden" name="pg" value="index.jsp">
+                                               <BR>
+                                               <INPUT TYPE="SUBMIT" value="Submit">
+                                               
+                                           </FORM>
+                                       </BODY>
                 </div>
             </div>
         </div>
