@@ -21,6 +21,7 @@ public class Advertisements implements Serializable {
      private String content;
     private String unitPrice;
     private String activity = "0";
+    private String availableUnits;
     private String temp; //holds units for temporary calculations
     
     
@@ -30,6 +31,11 @@ public class Advertisements implements Serializable {
     
     public String getActivity() {
         return activity;
+    }
+    
+    public String getAvailableUnits()
+    {
+        return availableUnits;
     }
     
      public int getActivityInt() {
@@ -94,6 +100,11 @@ public class Advertisements implements Serializable {
          
           public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+          
+           public void setAvailableUnits(String S)
+    {
+        availableUnits = S;
     }
           
            public void setContent(String content) {

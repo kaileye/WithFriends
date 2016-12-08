@@ -74,6 +74,7 @@
                                     <th>Item Name</th>
                                     <th>Description</th>
                                     <th>Price per Unit</th>
+                                    <th># Of Available Units</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -87,6 +88,7 @@
                                         <td>${alladverts.itemName}</td>
                                         <td>${alladverts.content}</td>
                                         <td>${alladverts.unitPrice}</td>
+                                        <td>${alladverts.availableUnits}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

@@ -51,6 +51,7 @@ public class ShowAllAdvertisements extends HttpServlet {
                 ad.setItemName(data.getString("ItemName"));
                 ad.setContent(data.getString("Content"));
                 ad.setUnitPrice(data.getString("UnitPrice"));
+                ad.setAvailableUnits(data.getString("AvailableUnits"));
                
                 allAdvertisements.add(ad);
             }
