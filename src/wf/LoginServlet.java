@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
     private static String connectionString = "jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false";
     private static Connection connection;
     private ResultSet data;
+    private ResultSet data2;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -57,6 +58,18 @@ public class LoginServlet extends HttpServlet {
                 u.setLastname(data.getString("LastName"));
                 request.setAttribute("user", u);
                 session.setAttribute("loggedin", true);
+                ps = connection.prepareStatement("SELECT * FROM employees WHERE EmployeeId = ?");
+                ps.setString(1, data.getString("UserId"));
+                data2 = ps.executeQuery();
+                if (data2.next()) {
+                    session.setAttribute("employee", true);
+                }
+                ps = connection.prepareStatement("SELECT * FROM managers WHERE UserId = ?");
+                ps.setString(1, data.getString("UserId"));
+                data2 = ps.executeQuery();
+                if (data2.next()) {
+                    session.setAttribute("manager", true);
+                }
             } else {
                 request.setAttribute("validlogin", false);
 
