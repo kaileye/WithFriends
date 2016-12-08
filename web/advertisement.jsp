@@ -26,14 +26,14 @@
             url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
             user="cse305"  password="cse305"/>
         <sql:query dataSource="${wfdb}" var="advertisements">
-            SELECT A.* FROM advertisements A, users U WHERE U.UserId = ${USER.userId} AND U.preference = A.type ORDER BY A.PostDateTime DESC;
+            SELECT A.* FROM advertisements A, users U WHERE U.UserId = ${USER.userId} AND U.preference = A.type AND A.AvailableUnits > 0 ORDER BY A.PostDateTime DESC;
         </sql:query>
         <c:forEach var="advertisement" items="${advertisements.rows}">
         <div class="jumbotron">
             <div class="container">
-                <h1>${advertisement.ItemName}</h1>
+                <h1>${advertisement.ItemName} - ${advertisement.Company}</h1>
                 <p>${advertisement.Content}</p>
-                <button class="btn btn-primary btn-lg">$${advertisement.UnitPrice}</button>
+                <button class="btn btn-primary btn-lg">$${advertisement.UnitPrice}</button>  ${advertisement.availableunits} units available
             </div>
         </div>
         </c:forEach>

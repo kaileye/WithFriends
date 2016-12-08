@@ -104,6 +104,8 @@
                                                <INPUT TYPE="TEXT" NAME="createadcontent">
                                                 please enter price of each unit:
                                                <INPUT TYPE="TEXT" NAME="createadprice">
+                                               please enter number of units:
+                                               <INPUT TYPE="TEXT" NAME="createdunits">
                                                <input type="hidden" name="pg" value="index.jsp">
                                                <BR>
                                                <INPUT TYPE="SUBMIT" value="Submit">
