@@ -50,6 +50,7 @@
                     <div class="panel-heading">
                         <h4 class="text-center">Manager Exclusive Actions</h4>
                     </div>
+                    <div class="panel-body">
                                                                 <BODY>
                                            <H1>Monthly Sales Report</H1>
                                            <FORM ACTION="salesreport" METHOD="POST">
@@ -95,14 +96,14 @@
                                            <H1>See which customer representative generated most total revenue</H1>
                                                 <form action="richestrep" method="POST">
                                                         <BR>
-                                               <INPUT TYPE="SUBMIT" value="richestrep">
+                                               <INPUT TYPE="SUBMIT" value="Submit">
                                                 </form>
                                        </BODY>
                                         <BODY>
                                            <H1>Determine which customer generated most total revenue</H1>
                                                 <form action="richestcus" method="POST">
                                                         <BR>
-                                               <INPUT TYPE="SUBMIT" value="richestcus">
+                                               <INPUT TYPE="SUBMIT" value="Submit">
                                                 </form>
                                        </BODY>
                                        <BODY>
@@ -133,7 +134,6 @@
                                                
                                            </FORM>
                                        </BODY>
-                    <div class="panel-body">
                     </div>
                 </div>
             </div>
