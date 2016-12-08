@@ -28,14 +28,50 @@
         <sql:query dataSource="${wfdb}" var="advertisements">
             SELECT A.* FROM advertisements A, users U WHERE U.UserId = ${USER.userId} AND U.preference = A.type AND A.AvailableUnits > 0 ORDER BY A.PostDateTime DESC;
         </sql:query>
+        <sql:query dataSource="${wfdb}" var="accounts">
+            SELECT * FROM usersaccounts WHERE UserId = ${USER.userId};
+        </sql:query>
         <c:forEach var="advertisement" items="${advertisements.rows}">
         <div class="jumbotron">
             <div class="container">
                 <h1>${advertisement.ItemName} - ${advertisement.Company}</h1>
                 <p>${advertisement.Content}</p>
-                <button class="btn btn-primary btn-lg">$${advertisement.UnitPrice}</button>  ${advertisement.availableunits} units available
+                <button class="btn btn-primary btn-lg itembuyer" value="${advertisement.ADId}">$${advertisement.UnitPrice}</button>  ${advertisement.availableunits} units available
             </div>
         </div>
         </c:forEach>
+        <div id="buyitemdialog" class="dialog" title="Buy Item">
+            <form action="buyitem" method="POST">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <input type="hidden" name="pg" value="advertisement.jsp">
+                            <input type="hidden" name="advertisementid" class="advertisementid" value="">
+                            Units: <input type="number" name="units">
+                            Account: 
+                            <select name="accountnumber">
+                                <c:forEach var="account" items="${accounts.rows}">
+                                    <option value="${account.AccountNumber}">${account.AccountNumber}</option>
+                                </c:forEach>
+                            </select> 
+                            <br /><br />
+                            <button type="submit" class="btn pull-right">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+        $("#buyitemdialog").dialog({
+            autoOpen: false,
+            width: "auto"
+        });
+        
+        
+        $(".itembuyer").click(function () {
+            $("#buyitemdialog").dialog("open");
+            $(".advertisementid").val($(this).val());
+        });
+        </script>
     </body>
 </html>
