@@ -47,9 +47,9 @@
                         <div class="form-group">
                             <input type="hidden" name="pg" value="advertisement.jsp">
                             <input type="hidden" name="advertisementid" class="advertisementid" value="">
-                            Units: <input type="number" name="units">
+                            Units: <input type="number" name="units" required="required">
                             Account: 
-                            <select name="accountnumber">
+                            <select name="accountnumber" required="required">
                                 <c:forEach var="account" items="${accounts.rows}">
                                     <option value="${account.AccountNumber}">${account.AccountNumber}</option>
                                 </c:forEach>
