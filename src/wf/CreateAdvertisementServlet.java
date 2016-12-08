@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Calendar;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,10 +30,11 @@ public class CreateAdvertisementServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
+        java.sql.Timestamp currentTimestamp = new java.sql.Timestamp(Calendar.getInstance().getTime().getTime());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO advertisements(EmployeeId, Type, Company, ItemName, Content, UnitPrice, AvailableUnits) VALUES(?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO advertisements(EmployeeId, Type, Company, ItemName, Content, UnitPrice, AvailableUnits, PostDateTime) VALUES(?,?,?,?,?,?,?,?)");
             ps.setString(1, u.getUserId());
             ps.setString(2, request.getParameter("createadtype"));
             ps.setString(3, request.getParameter("createadcompany"));
@@ -40,6 +42,7 @@ public class CreateAdvertisementServlet extends HttpServlet {
             ps.setString(5, request.getParameter("createadcontent"));
             ps.setString(6, request.getParameter("createadprice"));
             ps.setString(7, request.getParameter("createdunits"));
+            ps.setString(8, currentTimestamp.toString());
             ps.executeUpdate();
             
         } catch (Exception e) {
