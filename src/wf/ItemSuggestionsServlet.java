@@ -54,6 +54,7 @@ public class ItemSuggestionsServlet extends HttpServlet {
                 newad.setAdId(data.getString("ADId"));
                 newad.setItemName(data.getString("ItemName"));
                 newad.setType(data.getString("Type"));
+                newad.setUnitPrice(data.getString("UnitPrice"));
                 recads.add(newad);
                 Type ntype = new Type();
                  boolean typecheck = false;
@@ -104,6 +105,7 @@ public class ItemSuggestionsServlet extends HttpServlet {
                                     newad.setItemName(data.getString("ItemName"));
                                     newad.setType(data.getString("Type"));
                                     newad.setCompany(data.getString("Company"));
+                                    newad.setUnitPrice(data.getString("UnitPrice"));
                                     recads.add(newad);
                                 }
                         
