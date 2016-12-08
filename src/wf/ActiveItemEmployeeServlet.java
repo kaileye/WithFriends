@@ -40,6 +40,7 @@ public class ActiveItemEmployeeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
         allads.clear();
+        nodupes.clear();
         
         
         try {
