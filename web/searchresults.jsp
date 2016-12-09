@@ -34,7 +34,7 @@
            url="jdbc:mysql://localhost:3306/withfriends?autoReconnect=true&useSSL=false"
            user="cse305"  password="cse305"/>
         <sql:query dataSource="${wfdb}" var="groups">
-            SELECT * FROM groups WHERE OwnerId=${USER.userId};
+            SELECT G.* FROM groups G, groupsmembers M WHERE G.GroupId = M.GroupId AND M.UserId = ${USER.userId};
         </sql:query>
         <%@ include file="navigation.jsp" %>
         <c:if test="${alreadyfriends == true}">
