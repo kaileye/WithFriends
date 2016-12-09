@@ -44,7 +44,7 @@ public class ItemSuggestionsServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("SELECT s.*, A.ItemName, A.UnitPrice, A.Type FROM sales s INNER JOIN advertisements A on A.ADId = s.ADId WHERE s.CustomerId = ?");
+            PreparedStatement ps = connection.prepareStatement("SELECT s.*, A.ItemName, A.UnitPrice, A.AvailableUnits, A.Type FROM sales s INNER JOIN advertisements A on A.ADId = s.ADId WHERE s.CustomerId = ?");
             ps.setString(1, gettransactionsearch);
             data = ps.executeQuery();
                 
@@ -55,6 +55,7 @@ public class ItemSuggestionsServlet extends HttpServlet {
                 newad.setItemName(data.getString("ItemName"));
                 newad.setType(data.getString("Type"));
                 newad.setUnitPrice(data.getString("UnitPrice"));
+                newad.setAvailableUnits(data.getString("AvailableUnits"));
                 recads.add(newad);
                 Type ntype = new Type();
                  boolean typecheck = false;
@@ -106,10 +107,15 @@ public class ItemSuggestionsServlet extends HttpServlet {
                                     newad.setType(data.getString("Type"));
                                     newad.setCompany(data.getString("Company"));
                                     newad.setUnitPrice(data.getString("UnitPrice"));
+                                    newad.setAvailableUnits(data.getString("AvailableUnits"));
                                     recads.add(newad);
                                 }
                         
-            
+            for (int av = 0; av < recads.size(); av++)
+                {
+                    if(recads.get(av).getAvailableUnits().equalsIgnoreCase("0"))
+                    {recads.remove(av);}
+                }
             
            
             

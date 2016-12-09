@@ -33,12 +33,25 @@ public class DeleteAdvertisementServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User u = (User)session.getAttribute("user");
+        
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connectionString, dbUsername, dbPassward);
-            PreparedStatement ps = connection.prepareStatement("DELETE FROM advertisements WHERE ADId = ?");
-            ps.setString(1, request.getParameter("getdeletead"));
-            ps.executeUpdate();
+            PreparedStatement ps2 = connection.prepareStatement("SELECT * FROM advertisements WHERE ADId = ?");
+            boolean employeeprivelage = false;
+            ps2.setString(1, request.getParameter("getdeletead"));
+            data = ps2.executeQuery();
+            while(data.next())
+                {if(data.getString("EmployeeId").equalsIgnoreCase(u.getEmployeeId()))
+                        {employeeprivelage = true;}
+                    }
+            PreparedStatement ps = connection.prepareStatement("UPDATE advertisements SET AvailableUnits = ? WHERE ADId = ?");
+            ps.setString(1, "0");
+            ps.setString(2, request.getParameter("getdeletead"));
+            if(employeeprivelage)
+            {ps.executeUpdate();}
+            
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

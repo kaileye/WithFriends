@@ -38,6 +38,7 @@ private ArrayList<Sale> resultsalestotal = new ArrayList<>(1);
         String getrevenuesearch = request.getParameter("getrevenuesearch");
         User u = (User)session.getAttribute("user");
         resultsales.clear();
+        resultsalestotal.clear();
         
         try {
             Class.forName("com.mysql.jdbc.Driver");

@@ -56,6 +56,7 @@ public class CompanySearchServlet extends HttpServlet {
                 newad.setType(data.getString("Type"));
                 newad.setUnitPrice(data.getString("UnitPrice"));
                 newad.setCompany(data.getString("Company"));
+                newad.setAvailableUnits(data.getString("AvailableUnits"));
                 resultsales.add(newad);
             }
             
