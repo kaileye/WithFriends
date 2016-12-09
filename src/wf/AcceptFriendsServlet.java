@@ -43,6 +43,10 @@ public class AcceptFriendsServlet extends HttpServlet {
                 ps2.setString(1, u.getUserId());
                 ps2.setString(2, request.getParameter("usid"));
                 ps2.executeUpdate();
+                ps2 = connection.prepareStatement("INSERT INTO UsersFriends (UserId, FriendId) VALUES (?,?)");
+                ps2.setString(2, u.getUserId());
+                ps2.setString(1, request.getParameter("usid"));
+                ps2.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();
