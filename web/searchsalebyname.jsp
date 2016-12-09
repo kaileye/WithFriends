@@ -68,7 +68,7 @@
                                 <tr>
                                     <th>Transaction ID</th>
                                     <th>Customer ID</th>
-                                    <th>Account # of Employee</th>
+                                    <th>Account # of Employee overseeing transaction</th>
                                     <th>Date and Time</th>
                                     <th>AD's ID</th>
                                     <th>Units Sold</th>

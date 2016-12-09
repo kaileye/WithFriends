@@ -69,6 +69,7 @@
                                     <th>Type</th>
                                     <th>Price per Unit</th>
                                     <th>Company</th>
+                                    <th>Available Units</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -79,6 +80,7 @@
                                         <td>${SearchItemResults.type}</td>
                                         <td>${SearchItemResults.unitPrice}</td>
                                         <td>${SearchItemResults.company}</td>
+                                        <td>${SearchItemResults.availableUnits}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
